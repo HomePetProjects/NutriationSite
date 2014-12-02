@@ -4,9 +4,17 @@
         <meta charset="utf-8" />
         <title>@ViewBag.Title - My ASP.NET MVC Application</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Content/custom-theme/jquery-ui-1.10.3.custom.css")
+
         <meta name="viewport" content="width=device-width" />
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/Scripts/jquery-1.8.2.js")
+        @Scripts.Render("~/Scripts/jquery-ui-1.11.2.js")
+        <script>
+            window.PN = {};
+        </script>
     </head>
     <body>
         <header>
@@ -23,6 +31,7 @@
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("About", "About", "Home")</li>
                             <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li>@Html.ActionLink("Params", "Index", "Parameter")</li>
                         </ul>
                     </nav>
                 </div>
@@ -42,7 +51,7 @@
             </div>
         </footer>
 
-        @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
+
     </body>
 </html>
