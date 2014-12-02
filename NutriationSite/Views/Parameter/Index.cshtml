@@ -1,0 +1,25 @@
+﻿@model IEnumerable<NutriationSite.Models.Parameter>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h1>Parameters</h1>
+@{
+    foreach (NutriationSite.Models.Parameter i in @Model)
+    {
+        @Html.Partial("_Chart", i);
+    }
+}
+<br />
+<p><input id="add-parameter-btn" type="button" value="Add Parameter"></p>
+
+@Scripts.Render("https://www.google.com/jsapi")
+@Scripts.Render("~/Scripts/App/Chart/Chart.js")
+
+<script>
+    google.load("visualization", "1", { packages: ["corechart"] });
+</script>
+
+
