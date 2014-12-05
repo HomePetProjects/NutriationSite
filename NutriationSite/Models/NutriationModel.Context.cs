@@ -12,10 +12,10 @@ namespace NutriationSite.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-
+    
     public partial class NutriationContext : DbContext
     {
-        public NutriationContext() : base("name=NutriationDBEntities")
+        public NutriationContext(): base("name=EntitiesNutriation")
         {
         }
     

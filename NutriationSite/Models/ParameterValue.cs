@@ -11,14 +11,11 @@ namespace NutriationSite.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class ParameterValue
     {
         public int Id { get; set; }
         public int Parameter_Id { get; set; }
-
-        [Required(ErrorMessage = "Ñan not be empty")]
         public double Value { get; set; }
         public System.DateTime DateTime { get; set; }
         public string Comment { get; set; }

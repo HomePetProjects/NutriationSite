@@ -11,7 +11,6 @@ namespace NutriationSite.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Parameter
     {
@@ -21,12 +20,7 @@ namespace NutriationSite.Models
         }
     
         public int Id { get; set; }
-        [Required(ErrorMessage="Ñan not be empty")]
-        [StringLength(50, MinimumLength = 2, ErrorMessage = "The string length must be between 2 and 50 characters")]
-        [Display(Name= "Parameter name")]
         public string Name { get; set; }
-
-        [Display(Name = "Parameter unit")]
         public string Measure_Unit { get; set; }
         public int User_Id { get; set; }
     

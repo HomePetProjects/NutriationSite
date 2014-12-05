@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="NutriationDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="Parameter">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Measure_Unit" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Measure_Unit" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="User_Id" Type="Int32" Nullable="false" />
     <NavigationProperty Name="ParameterValues" Relationship="Self.FK" FromRole="Parameters" ToRole="ParameterValues" />
   </EntityType>
@@ -22,10 +22,10 @@
     <NavigationProperty Name="Parameters" Relationship="Self.FK" FromRole="ParameterValues" ToRole="Parameters" />
   </EntityType>
   <Association Name="FK">
-    <End Role="Parameters" Type="NutriationDBModel.Parameter" Multiplicity="1">
+    <End Role="Parameters" Type="Model.Parameter" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Role="ParameterValues" Type="NutriationDBModel.ParameterValue" Multiplicity="*" />
+    <End Role="ParameterValues" Type="Model.ParameterValue" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Parameters">
         <PropertyRef Name="Id" />
@@ -35,9 +35,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="NutriationDBEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Parameters" EntityType="NutriationDBModel.Parameter" />
-    <EntitySet Name="ParameterValues" EntityType="NutriationDBModel.ParameterValue" />
+  <EntityContainer Name="EntitiesNutriation" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Parameters" EntityType="Model.Parameter" />
+    <EntitySet Name="ParameterValues" EntityType="Model.ParameterValue" />
     <AssociationSet Name="FK" Association="Self.FK">
       <End Role="Parameters" EntitySet="Parameters" />
       <End Role="ParameterValues" EntitySet="ParameterValues" />

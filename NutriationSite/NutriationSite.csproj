@@ -209,7 +209,6 @@
       <DependentUpon>NutriationModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Parameter.cs">
-      <SubType>Code</SubType>
       <DependentUpon>NutriationModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ParameterValue.cs">
@@ -218,13 +217,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\NutriationDB.ldf">
-      <DependentUpon>NutriationDB.mdf</DependentUpon>
-    </Content>
-    <Content Include="App_Data\NutriationDB.mdf" />
-    <Content Include="App_Data\NutriationDB_log.ldf">
-      <DependentUpon>NutriationDB.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\custom-theme\images\animated-overlay.gif" />
     <Content Include="Content\custom-theme\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\custom-theme\images\ui-bg_flat_100_A6DBED_40x100.png" />
@@ -293,6 +285,7 @@
       <DependentUpon>NutriationModel.edmx</DependentUpon>
       <LastGenOutput>NutriationModel.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\igormzg.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\App\Chart\Chart.js" />
     <Content Include="Scripts\App\Home\parameter-controller.js" />
@@ -358,7 +351,9 @@
     <Content Include="Views\Parameter\AddValue.cshtml" />
     <Content Include="Views\Parameter\AddParameter.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="NutriationDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Parameters">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Measure_Unit" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Measure_Unit" Type="nvarchar(max)" />
           <Property Name="User_Id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ParameterValues">
@@ -38,7 +38,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="NutriationDBModelStoreContainer">
+        <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Parameters" EntityType="Self.Parameters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParameterValues" EntityType="Self.ParameterValues" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK" Association="Self.FK">
@@ -50,14 +50,14 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="NutriationDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Parameter">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Measure_Unit" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Measure_Unit" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="User_Id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ParameterValues" Relationship="Self.FK" FromRole="Parameters" ToRole="ParameterValues" />
         </EntityType>
@@ -73,10 +73,10 @@
           <NavigationProperty Name="Parameters" Relationship="Self.FK" FromRole="ParameterValues" ToRole="Parameters" />
         </EntityType>
         <Association Name="FK">
-          <End Role="Parameters" Type="NutriationDBModel.Parameter" Multiplicity="1">
+          <End Role="Parameters" Type="Model.Parameter" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="ParameterValues" Type="NutriationDBModel.ParameterValue" Multiplicity="*" />
+          <End Role="ParameterValues" Type="Model.ParameterValue" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Parameters">
               <PropertyRef Name="Id" />
@@ -86,9 +86,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="NutriationDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Parameters" EntityType="NutriationDBModel.Parameter" />
-          <EntitySet Name="ParameterValues" EntityType="NutriationDBModel.ParameterValue" />
+        <EntityContainer Name="EntitiesNutriation" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Parameters" EntityType="Model.Parameter" />
+          <EntitySet Name="ParameterValues" EntityType="Model.ParameterValue" />
           <AssociationSet Name="FK" Association="Self.FK">
             <End Role="Parameters" EntitySet="Parameters" />
             <End Role="ParameterValues" EntitySet="ParameterValues" />
@@ -99,9 +99,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="NutriationDBModelStoreContainer" CdmEntityContainer="NutriationDBEntities">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="EntitiesNutriation">
           <EntitySetMapping Name="Parameters">
-            <EntityTypeMapping TypeName="NutriationDBModel.Parameter">
+            <EntityTypeMapping TypeName="Model.Parameter">
               <MappingFragment StoreEntitySet="Parameters">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -111,7 +111,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ParameterValues">
-            <EntityTypeMapping TypeName="NutriationDBModel.ParameterValue">
+            <EntityTypeMapping TypeName="Model.ParameterValue">
               <MappingFragment StoreEntitySet="ParameterValues">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Parameter_Id" ColumnName="Parameter_Id" />

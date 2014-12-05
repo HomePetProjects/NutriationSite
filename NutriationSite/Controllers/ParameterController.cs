@@ -19,6 +19,7 @@ namespace NutriationSite.Controllers
         {
             ViewBag.ParamValue = _nutrContext.ParameterValues;
             int id = (from a in _usContext.UserProfiles where a.UserName == User.Identity.Name select a.UserId).First();
+            //int id = (from a in _usContext.UserProfiles where a.UserName == User.Identity.Name select a.UserId).First();
             return View(_nutrContext.Parameters.Where(e => e.User_Id == id));
         }
 
@@ -39,14 +40,16 @@ namespace NutriationSite.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddValue(ParameterValue param)
+        public ActionResult AddValue(int Parameter_Id, double Value, string Comment)
         {
-            param.DateTime = DateTime.Now;
-            _nutrContext.ParameterValues.Add(param);
+            ParameterValue par = new ParameterValue();
+            par.Value = Value;
+            par.Comment = Comment;
+            par.DateTime = DateTime.Now;
+            par.Parameter_Id = Parameter_Id;
+            _nutrContext.ParameterValues.Add(par);
             _nutrContext.SaveChanges();
-
-            return RedirectToAction("Index");
+            return new EmptyResult();
         }
 
 
@@ -57,7 +60,6 @@ namespace NutriationSite.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult AddParameter(Parameter param)
         {
             param.User_Id = (from a in _usContext.UserProfiles where a.UserName == User.Identity.Name select a.UserId).First();
@@ -68,7 +70,7 @@ namespace NutriationSite.Controllers
             return RedirectToAction("Index");
         }
 
-        
+        //This action return all charts
         public string GetCharts()
         {
             int id = (from a in _usContext.UserProfiles where a.UserName == User.Identity.Name select a.UserId).First();
@@ -92,6 +94,40 @@ namespace NutriationSite.Controllers
             }
 
             string json = JsonConvert.SerializeObject(anonList);
+            return json;
+        }
+
+        //This action return one chart
+        public string GetChart(int id)
+        {
+            Parameter param = _nutrContext.Parameters.Where(e => e.Id == id).First();
+
+            ParameterValue[] arr = (from a in _nutrContext.ParameterValues where a.Parameter_Id == id select a).ToArray();
+            List<Object> anonValueList = new List<object>();
+            foreach (var j in arr)
+            {
+                anonValueList.Add(new
+                {
+                    Id = j.Id,
+                    DateTime = j.DateTime.ToShortTimeString() + " " + j.DateTime.ToShortDateString(),
+                    Value = j.Value,
+                    Comment = j.Comment,
+                    Parameter_Id = j.Parameter_Id
+                });
+            }
+            object paramObj = new
+            {
+                Parameter = new
+                {
+                    Id = param.Id,
+                    Name = param.Name,
+                    Measure_Unit = param.Measure_Unit,
+                    User_Id = param.User_Id
+                },
+                ValueArr = anonValueList.ToArray()
+            };
+
+            string json = JsonConvert.SerializeObject(paramObj);
             return json;
         }
     }

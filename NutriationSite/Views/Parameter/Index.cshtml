@@ -4,7 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-
 <h1>Parameters</h1>
 @{
     foreach (NutriationSite.Models.Parameter i in @Model)
@@ -13,7 +12,40 @@
     }
 }
 <br />
-<p><input id="add-parameter-btn" type="button" value="Add Parameter"></p>
+<p><input id="add-parameter-btn" type="button" value="Add new parameter"></p>
+
+<!--Hidden dialog-->
+<div id="add-value-dialog" title="Add new value" style="display:none">
+
+    @using (Html.BeginForm("AddValue", "Parameter", FormMethod.Post, new { id = "value-form" }))
+    {
+        @Html.Hidden("Parameter_Id");
+
+        <div class="editor-field">
+            @Html.Label("Value", "Value:")
+            @Html.Editor("Value", new { style = "width:300px" })
+        </div>
+        <div class="editor-label">
+            @Html.Label("Comment", "Comment:")
+            @Html.TextArea("Comment", new { style = "width:300px" })
+        </div>
+    }
+</div>
+
+<div id="add-parameter-dialog" title="Add new parameter" style="display:none">
+
+    @using (Html.BeginForm("AddParameter", "Parameter", "POST"))
+    {       
+        <div class="editor-field">
+            @Html.Label("Name", "Name:")
+            @Html.Editor("Name", new { style = "width:300px" })
+        </div>
+        <div class="editor-label">
+            @Html.Label("Measure_Unit", "Unit:")
+            @Html.Editor("Measure_Unit", new { style = "width:300px" })
+        </div>
+    }
+</div>
 
 @Scripts.Render("https://www.google.com/jsapi")
 @Scripts.Render("~/Scripts/App/Chart/Chart.js")
@@ -21,5 +53,3 @@
 <script>
     google.load("visualization", "1", { packages: ["corechart"] });
 </script>
-
-

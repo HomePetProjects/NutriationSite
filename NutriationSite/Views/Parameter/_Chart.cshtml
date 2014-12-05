@@ -5,6 +5,5 @@
     string d = "chart" + @Model.Id;
     <div id=@d style="position: relative" onmouseover="window.PN.chart.btnDelShow(@Model.Id)" onmouseout="window.PN.chart.btnDelHide(@Model.Id)"></div>
 
-    string href = "/Parameter/AddValue?id=" + Model.Id; 
-    <input type="button" value="Add Value" class="viewDialog" href="@href" style="float:right">
+    <input type="button" value="Add Value" class="viewDialog" param-id="@Model.Id" style="float:right">
 }
