@@ -106,7 +106,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/17/2014 02:29:27</publishTime>
     </File>
     <File Include="bin/NutriationSite.dll">
-      <publishTime>12/02/2014 20:41:51</publishTime>
+      <publishTime>12/06/2014 02:07:03</publishTime>
     </File>
     <File Include="bin/ru/Microsoft.Data.Edm.resources.dll">
       <publishTime>11/17/2014 02:29:37</publishTime>
@@ -230,6 +230,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/custom-theme/jquery-ui-1.10.3.custom.min.css">
       <publishTime>10/19/2013 01:20:54</publishTime>
+    </File>
+    <File Include="Content/ParamPage.css">
+      <publishTime>12/06/2014 00:46:04</publishTime>
     </File>
     <File Include="Content/Site.css">
       <publishTime>11/17/2014 02:29:01</publishTime>
@@ -385,7 +388,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/26/2014 00:23:59</publishTime>
     </File>
     <File Include="Scripts/App/Chart/Chart.js">
-      <publishTime>12/02/2014 14:32:45</publishTime>
+      <publishTime>12/06/2014 02:05:38</publishTime>
     </File>
     <File Include="Scripts/App/Home/parameter-controller.js">
       <publishTime>12/01/2013 13:58:54</publishTime>
@@ -481,10 +484,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/02/2014 02:17:15</publishTime>
     </File>
     <File Include="Views/Parameter/Index.cshtml">
-      <publishTime>12/02/2014 03:09:17</publishTime>
+      <publishTime>12/06/2014 00:58:15</publishTime>
     </File>
     <File Include="Views/Parameter/_Chart.cshtml">
-      <publishTime>12/02/2014 03:06:54</publishTime>
+      <publishTime>12/04/2014 23:30:29</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>11/21/2014 00:20:18</publishTime>

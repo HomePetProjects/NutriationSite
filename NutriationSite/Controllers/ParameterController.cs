@@ -8,19 +8,20 @@ using Newtonsoft.Json;
 
 namespace NutriationSite.Controllers
 {
-    [Authorize]
     public class ParameterController : Controller
     {
         NutriationContext _nutrContext = new NutriationContext();
         UsersContext _usContext = new UsersContext();
 
-        [Authorize]
         public ActionResult Index()
         {
-            ViewBag.ParamValue = _nutrContext.ParameterValues;
-            int id = (from a in _usContext.UserProfiles where a.UserName == User.Identity.Name select a.UserId).First();
-            //int id = (from a in _usContext.UserProfiles where a.UserName == User.Identity.Name select a.UserId).First();
-            return View(_nutrContext.Parameters.Where(e => e.User_Id == id));
+            if (Request.IsAuthenticated)
+            {
+                ViewBag.ParamValue = _nutrContext.ParameterValues;
+                int id = (from a in _usContext.UserProfiles where a.UserName == User.Identity.Name select a.UserId).First();
+                return View(_nutrContext.Parameters.Where(e => e.User_Id == id));
+            }
+            else return View();
         }
 
         public string DeleteChart()
@@ -54,12 +55,14 @@ namespace NutriationSite.Controllers
 
 
         //Action return partial view for dialog "Add Parameter"
+        
         public ActionResult AddParameter()
         {
             return PartialView("AddParameter");
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult AddParameter(Parameter param)
         {
             param.User_Id = (from a in _usContext.UserProfiles where a.UserName == User.Identity.Name select a.UserId).First();

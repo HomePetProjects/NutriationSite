@@ -4,15 +4,26 @@
     ViewBag.Title = "Index";
 }
 
-<h1>Parameters</h1>
+
+
 @{
-    foreach (NutriationSite.Models.Parameter i in @Model)
+    if (Request.IsAuthenticated)
     {
-        @Html.Partial("_Chart", i);
+        <h1>Parameters</h1>
+        foreach (NutriationSite.Models.Parameter i in @Model)
+        {
+            @Html.Partial("_Chart", i);
+        }
+        <br />
+        <p><input id="add-parameter-btn" type="button" value="Add new parameter"></p>
+    }
+    else
+    {
+        <h1>Greetings</h1>
+        <p>This is a home page</p>
+        <p>Pleas @Html.ActionLink("login", "Login", "Account")</p>
     }
 }
-<br />
-<p><input id="add-parameter-btn" type="button" value="Add new parameter"></p>
 
 <!--Hidden dialog-->
 <div id="add-value-dialog" title="Add new value" style="display:none">
@@ -23,6 +34,8 @@
 
         <div class="editor-field">
             @Html.Label("Value", "Value:")
+            <span id="value-empty-validation-message" class="validation-message">Please enter value</span>
+            <span id="value-isnumber-validation-message" class="validation-message">Please enter number</span>
             @Html.Editor("Value", new { style = "width:300px" })
         </div>
         <div class="editor-label">
@@ -38,6 +51,7 @@
     {       
         <div class="editor-field">
             @Html.Label("Name", "Name:")
+            <span id="name-validation-message" class="validation-message">Please enter name</span>
             @Html.Editor("Name", new { style = "width:300px" })
         </div>
         <div class="editor-label">
@@ -47,6 +61,7 @@
     }
 </div>
 
+@Styles.Render("~/Content/ParamPage.css")
 @Scripts.Render("https://www.google.com/jsapi")
 @Scripts.Render("~/Scripts/App/Chart/Chart.js")
 

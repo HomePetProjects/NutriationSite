@@ -28,14 +28,17 @@ window.PN.chart = {
 
     //Delete chart function
     btnDelClick: function (id) {
-        $.ajax({
-            url: "/Parameter/DeleteChart",
-            dataType: 'json',
-            data: { 'id': id },
-            success: function (data, textStatus) {
-                location.reload();
-            }
-        })
+        var realy = confirm('Are you sure?')
+        if (realy){
+            $.ajax({
+                url: "/Parameter/DeleteChart",
+                dataType: 'json',
+                data: { 'id': id },
+                success: function (data, textStatus) {
+                    location.reload();
+                }
+            })
+        }
     },
 
     //Draw charts function
@@ -97,31 +100,6 @@ window.PN.chart = {
             })
     },
 
-    ////Button open dialog for Add Value
-    //addValueDialogBtn: function (e) {
-    //    var id = $(this).attr("param-id");
-    //    $('#add-value-dialog form input[name=Parameter_Id]').val(id);
-    //    $("#add-value-dialog")
-    //    .dialog({
-    //        title: "Add Value",
-    //        modal: true,
-    //        resizable: false,
-    //        width: "auto",
-    //        buttons: {
-    //            Add: function () {
-    //                $('#add-value-dialog form').submit();
-    //                $('#chart' + id).empty();
-    //                $(this).dialog('close');
-    //                return false;
-    //            },
-    //            Cancel: function () {
-    //                $(this).dialog('close');
-    //            }
-    //        }
-    //    })
-    //    //this.drawChart(id);
-    //},
-
     //Button open dialog for Add Value
     addValueDialogBtn: function (e) {
         var id = $(this).attr("param-id");
@@ -134,28 +112,45 @@ window.PN.chart = {
             width: "auto",
             buttons: {
                 Add: function () {
-                    var msg = $('#value-form').serialize();
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Parameter/AddValue',
-                        data: {
-                            Parameter_Id: $('#Parameter_Id').attr('value'),
-                            Value: $('#Value').attr('value'),
-                            Comment: $('#Comment').attr('value')
-                        },
-                        success: function (data) {
-                            $('#chart' + id).empty();
-                            window.PN.chart.drawChart(id);
-                        },
-                        error: function (xhr, str) {
-                            alert('Error: ' + xhr.responseCode);
-                        }
-                    });
+                    var value = $('#Value').attr('value');
+                    var temp = value.indexOf(',');
+                    if (temp != '-1') {
+                        var temp = value.split(',');
+                        value = temp[0] + '.' + temp[1];
+                    }
 
-                    $(this).dialog('close');
-                    return false;
+                    if (value.length == 0) {
+                        $('#value-empty-validation-message').css('display', 'block');
+                    }
+
+                    else if (isNaN(parseFloat(value))) {
+                        $('#value-empty-validation-message').css('display', 'none');
+                        $('#value-isnumber-validation-message').css('display', 'block');
+                    }
+                    else {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/Parameter/AddValue',
+                            data: {
+                                Parameter_Id: $('#Parameter_Id').attr('value'),
+                                Value: value,
+                                Comment: $('#Comment').attr('value')
+                            },
+                            success: function (data) {
+                                window.PN.chart.drawChart(id);
+                            },
+                            error: function (xhr, str) {
+                                alert('Error: ' + xhr.responseCode);
+                            }
+                        });
+
+                        $(this).dialog('close');
+                        return false;
+                    }
                 },
                 Cancel: function () {
+                    $('#value-empty-validation-message').css('display', 'none');
+                    $('#value-isnumber-validation-message').css('display', 'none');
                     $(this).dialog('close');
                 }
             }
@@ -175,8 +170,14 @@ window.PN.chart = {
             width: "auto",
             buttons: {
                 Add: function () {
-                    $('#add-parameter-dialog form').submit();
-                    $(this).dialog('close');
+                    var name = $('#Name').attr('value');
+                    if (name.length == 0) {
+                        $('#name-validation-message').css('display', 'block');
+                    }
+                    else {
+                        $('#add-parameter-dialog form').submit();
+                        $(this).dialog('close');
+                    }
                 },
                 Cancel: function () {
                     $(this).dialog('close');
@@ -186,5 +187,30 @@ window.PN.chart = {
     }
 }
 
+
+////Button open dialog for Add Value
+//addValueDialogBtn: function (e) {
+//    var id = $(this).attr("param-id");
+//    $('#add-value-dialog form input[name=Parameter_Id]').val(id);
+//    $("#add-value-dialog")
+//    .dialog({
+//        title: "Add Value",
+//        modal: true,
+//        resizable: false,
+//        width: "auto",
+//        buttons: {
+//            Add: function () {
+//                $('#add-value-dialog form').submit();
+//                $('#chart' + id).empty();
+//                $(this).dialog('close');
+//                return false;
+//            },
+//            Cancel: function () {
+//                $(this).dialog('close');
+//            }
+//        }
+//    })
+//    //this.drawChart(id);
+//},
 
 

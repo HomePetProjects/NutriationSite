@@ -1,0 +1,7 @@
+﻿
+.validation-message{
+    color:#ff0000;
+    display: none;
+    outline: none;
+    text-decoration:none;
+}
