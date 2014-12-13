@@ -28,10 +28,22 @@
                     </section>
                     <nav>
                         <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                            <li>@Html.ActionLink("Params", "Index", "Parameter")</li>
+                            @{
+                                NutriationSite.Models.MenuCollection menu = (NutriationSite.Models.MenuCollection)Session["menu"];
+                                menu.ResetCurrent();
+                                string controller = @RouteTable.Routes.GetRouteData(new HttpContextWrapper(HttpContext.Current)).Values["controller"].ToString();
+                                string view = @RouteTable.Routes.GetRouteData(new HttpContextWrapper(HttpContext.Current)).Values["action"].ToString();
+                                if (!menu.SetCurrent(view, controller))
+                            }
+                            @foreach (NutriationSite.Models.MenuElement i in menu.ItemsList)
+                            {
+                                if (i.currentView)
+                                {
+                                <li>@Html.ActionLink(@i.text, @i.view, @i.controller, new { id = "current" })</li>}
+                                else
+                                {
+                                <li>@Html.ActionLink(@i.text, @i.view, @i.controller)</li> }
+                            }
                         </ul>
                     </nav>
                 </div>

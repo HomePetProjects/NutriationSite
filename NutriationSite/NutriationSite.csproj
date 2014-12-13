@@ -186,13 +186,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ParameterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\MenuElement.cs" />
     <Compile Include="Models\NutriationModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -233,6 +233,7 @@
     <Content Include="Content\custom-theme\jquery-ui-1.10.3.custom.css" />
     <Content Include="Content\custom-theme\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="Content\ParamPage.css" />
+    <Content Include="Content\Plugins\jquery.datetimepicker.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -288,9 +289,10 @@
     </Content>
     <None Include="Properties\PublishProfiles\igormzg.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
-    <Content Include="Scripts\App\Chart\Chart.js" />
-    <Content Include="Scripts\App\Home\parameter-controller.js" />
+    <Content Include="Scripts\App\Home\Chart.js" />
+    <Content Include="Scripts\App\Home\Layout.js" />
     <Content Include="Scripts\App\main.js" />
+    <Content Include="Scripts\App\Plugins\jquery.datetimepicker.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -346,11 +348,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Home\DBTestView.cshtml" />
-    <Content Include="Views\Parameter\Index.cshtml" />
-    <Content Include="Views\Parameter\_Chart.cshtml" />
-    <Content Include="Views\Parameter\AddValue.cshtml" />
-    <Content Include="Views\Parameter\AddParameter.cshtml" />
+    <Content Include="Views\Home\_Chart.cshtml" />
+    <Content Include="Views\Home\Dialogs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NutriationSite.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,6 +24,12 @@ namespace NutriationSite
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+        }
+
+        protected void Session_Start()
+        {
+            MenuCollection _menu = new MenuCollection();
+            Session["menu"] = _menu;
         }
     }
 }

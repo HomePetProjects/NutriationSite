@@ -199,6 +199,12 @@ ul#menu {
             text-decoration: none;
         }
 
+        ul#menu li a#current {
+            background: none;
+            color: #333;
+            text-decoration: none;
+        }
+
         ul#menu li a:hover {
             color: #333;
             text-decoration: none;
@@ -754,3 +760,5 @@ tr.pager td {
             margin: 0;
         }
 }
+
+    

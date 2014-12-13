@@ -106,7 +106,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/17/2014 02:29:27</publishTime>
     </File>
     <File Include="bin/NutriationSite.dll">
-      <publishTime>12/06/2014 02:07:03</publishTime>
+      <publishTime>12/13/2014 21:42:34</publishTime>
     </File>
     <File Include="bin/ru/Microsoft.Data.Edm.resources.dll">
       <publishTime>11/17/2014 02:29:37</publishTime>
@@ -232,10 +232,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/19/2013 01:20:54</publishTime>
     </File>
     <File Include="Content/ParamPage.css">
-      <publishTime>12/06/2014 00:46:04</publishTime>
+      <publishTime>12/08/2014 23:23:50</publishTime>
+    </File>
+    <File Include="Content/Plugins/jquery.datetimepicker.css">
+      <publishTime>12/10/2014 20:01:38</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>11/17/2014 02:29:01</publishTime>
+      <publishTime>12/08/2014 23:47:10</publishTime>
     </File>
     <File Include="Content/themes/base/accordion.css">
       <publishTime>11/26/2014 00:23:59</publishTime>
@@ -390,11 +393,20 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/App/Chart/Chart.js">
       <publishTime>12/06/2014 02:05:38</publishTime>
     </File>
+    <File Include="Scripts/App/Home/Chart.js">
+      <publishTime>12/12/2014 12:53:37</publishTime>
+    </File>
+    <File Include="Scripts/App/Home/Layout.js">
+      <publishTime>12/08/2014 22:17:55</publishTime>
+    </File>
     <File Include="Scripts/App/Home/parameter-controller.js">
       <publishTime>12/01/2013 13:58:54</publishTime>
     </File>
     <File Include="Scripts/App/main.js">
       <publishTime>10/17/2013 01:45:17</publishTime>
+    </File>
+    <File Include="Scripts/App/Plugins/jquery.datetimepicker.js">
+      <publishTime>12/10/2014 20:00:43</publishTime>
     </File>
     <File Include="Scripts/jquery-1.8.2.js">
       <publishTime>11/17/2014 02:29:23</publishTime>
@@ -474,8 +486,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Home/DBTestView.cshtml">
       <publishTime>11/22/2014 03:14:47</publishTime>
     </File>
+    <File Include="Views/Home/Dialogs.cshtml">
+      <publishTime>12/12/2014 01:51:13</publishTime>
+    </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>11/17/2014 02:29:02</publishTime>
+      <publishTime>12/10/2014 20:11:07</publishTime>
+    </File>
+    <File Include="Views/Home/_Chart.cshtml">
+      <publishTime>12/08/2014 03:15:43</publishTime>
     </File>
     <File Include="Views/Parameter/AddParameter.cshtml">
       <publishTime>12/02/2014 02:24:09</publishTime>
@@ -493,7 +511,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/21/2014 00:20:18</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>11/27/2014 22:35:13</publishTime>
+      <publishTime>12/11/2014 01:42:28</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>11/17/2014 02:29:02</publishTime>
@@ -505,7 +523,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/17/2014 02:29:02</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/02/2014 20:41:52</publishTime>
+      <publishTime>12/13/2014 21:24:09</publishTime>
     </File>
   </ItemGroup>
 </Project>
