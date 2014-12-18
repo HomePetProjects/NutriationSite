@@ -7,6 +7,9 @@
 @{
     if (Request.IsAuthenticated)
     {
+        @Html.Partial("Journal")
+        
+        
         <h1>Parameters</h1>
         foreach (NutriationSite.Models.Parameter i in @Model)
         {
@@ -24,7 +27,7 @@
 }
 
 <!--Hidden dialog-->
-@Html.Partial("Dialogs");
+@Html.Partial("Dialogs")
 
 @Styles.Render("~/Content/ParamPage.css")
 @Styles.Render("~/Content/Plugins/jquery.datetimepicker.css")

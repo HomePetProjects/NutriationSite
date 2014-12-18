@@ -4,7 +4,24 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Meal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Weight" Type="float" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MeasureUnit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="MeasUnit" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="Parameters">
           <Key>
             <PropertyRef Name="Id" />
@@ -24,6 +41,19 @@
           <Property Name="DateTime" Type="datetime" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Calories" Type="float" Nullable="false" />
+          <Property Name="Protein" Type="float" Nullable="false" />
+          <Property Name="Fat" Type="float" Nullable="false" />
+          <Property Name="Carbohydrates" Type="float" Nullable="false" />
+          <Property Name="MeasureUnitId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK">
           <End Role="Parameters" Type="Self.Parameters" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -38,16 +68,52 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Meal_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Meal" Type="Self.Meal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Meal">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Measure">
+          <End Role="MeasureUnit" Type="Self.MeasureUnit" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MeasureUnit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="MeasureUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Meal" EntityType="Self.Meal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MeasureUnit" EntityType="Self.MeasureUnit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Parameters" EntityType="Self.Parameters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParameterValues" EntityType="Self.ParameterValues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK" Association="Self.FK">
             <End Role="Parameters" EntitySet="Parameters" />
             <End Role="ParameterValues" EntitySet="ParameterValues" />
           </AssociationSet>
+          <AssociationSet Name="FK_Meal_Product" Association="Self.FK_Meal_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Meal" EntitySet="Meal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Measure" Association="Self.FK_Product_Measure">
+            <End Role="MeasureUnit" EntitySet="MeasureUnit" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -93,7 +159,78 @@
             <End Role="Parameters" EntitySet="Parameters" />
             <End Role="ParameterValues" EntitySet="ParameterValues" />
           </AssociationSet>
+          <EntitySet Name="Meal" EntityType="Model.Meal" />
+          <EntitySet Name="MeasureUnit" EntityType="Model.MeasureUnit" />
+          <EntitySet Name="Product" EntityType="Model.Product" />
+          <AssociationSet Name="FK_Meal_Product" Association="Model.FK_Meal_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Meal" EntitySet="Meal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Measure" Association="Model.FK_Product_Measure">
+            <End Role="MeasureUnit" EntitySet="MeasureUnit" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Meal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Weight" Type="Double" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Model.FK_Meal_Product" FromRole="Meal" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="MeasureUnit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="MeasUnit" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product" Relationship="Model.FK_Product_Measure" FromRole="MeasureUnit" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Calories" Type="Double" Nullable="false" />
+          <Property Name="Protein" Type="Double" Nullable="false" />
+          <Property Name="Fat" Type="Double" Nullable="false" />
+          <Property Name="Carbohydrates" Type="Double" Nullable="false" />
+          <Property Name="MeasureUnitId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Meal" Relationship="Model.FK_Meal_Product" FromRole="Product" ToRole="Meal" />
+          <NavigationProperty Name="MeasureUnit" Relationship="Model.FK_Product_Measure" FromRole="Product" ToRole="MeasureUnit" />
+        </EntityType>
+        <Association Name="FK_Meal_Product">
+          <End Type="Model.Product" Role="Product" Multiplicity="1" />
+          <End Type="Model.Meal" Role="Meal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Meal">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Measure">
+          <End Type="Model.MeasureUnit" Role="MeasureUnit" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MeasureUnit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="MeasureUnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -118,6 +255,39 @@
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Meal">
+            <EntityTypeMapping TypeName="Model.Meal">
+              <MappingFragment StoreEntitySet="Meal">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MeasureUnit">
+            <EntityTypeMapping TypeName="Model.MeasureUnit">
+              <MappingFragment StoreEntitySet="MeasureUnit">
+                <ScalarProperty Name="MeasUnit" ColumnName="MeasUnit" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="Model.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="MeasureUnitId" ColumnName="MeasureUnitId" />
+                <ScalarProperty Name="Carbohydrates" ColumnName="Carbohydrates" />
+                <ScalarProperty Name="Fat" ColumnName="Fat" />
+                <ScalarProperty Name="Protein" ColumnName="Protein" />
+                <ScalarProperty Name="Calories" ColumnName="Calories" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

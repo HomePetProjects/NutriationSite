@@ -1,6 +1,7 @@
 ﻿//Document ready
 $(document).ready(function () {
     window.PN.chart.init();
+    window.PN.journalMenu.init();
 });
 
 //Namespace class
@@ -10,7 +11,7 @@ window.PN.chart = {
     init: function () {
         google.load("visualization", "1", { packages: ["corechart"] });
 
-        jQuery('#edit-value-dialog #DateTime').datetimepicker({ format: 'd.m.Y H:i' });
+        $('#edit-value-dialog #DateTime').datetimepicker({ format: 'd.m.Y H:i' });
 
         $(".viewDialog").on("click" , this.addValueDialogBtn);
         $(".close").on("click", this.closeDialogBtn);
@@ -169,7 +170,6 @@ window.PN.chart = {
     },
 
     //Buttons for EditValue Dialog
-    //
     editBtnClick: function (chart, valueId, parameterId) {
         var value = $('#edit-value-dialog #Value').attr('value');
         var date = $("#edit-value-dialog #DateTime").attr('value');
@@ -326,4 +326,70 @@ window.PN.chart = {
 }
 
 
+window.PN.journalMenu = {
+    //Property
+    date: new Date(),
+    datePeacker: null,
 
+    init: function () {
+        this.setMenuDatePicker();
+        $('#date-menu').buttonset();
+        $('.day-txt-class').on('click', this.clickDateBtn);
+    },
+
+    setMenuDatePicker: function(){
+        $('#date-peacker').datetimepicker({
+            timepicker: false,
+            format: 'd.m.Y',
+            onChangeDateTime: function (dp, $input) {
+                var temp = $input.val().indexOf('.');
+                if (temp != '-1') {
+                    var temp = $input.val().split('.');
+                    var date = new Date(temp[2], temp[1], temp[0]);
+                    window.PN.journalMenu.date = date;
+                    window.PN.journalMenu.redrawDateMenu();
+                }
+            },
+            onGenerate: function (ct) {
+                window.PN.journalMenu.date = ct;
+                window.PN.journalMenu.redrawDateMenu();
+            },
+            onShow: function (dt) {
+                dt = new Date(dt.getTime() + 24 * 60 * 60 * 1000);
+            },
+        })
+    },
+
+    redrawDateMenu: function () {
+        var date = window.PN.journalMenu.date;
+        var menu = $('#date-menu');
+        var day = 24 * 60 * 60 * 1000;
+
+        $('.day-txt-class span').empty();
+        var d = new Date(date.getTime() - day * 2);
+        $('#day-txt1 span').append(d.getDate());
+        var d = new Date(date.getTime() - day);
+        $('#day-txt2 span').append(d.getDate());
+        var d = new Date(date.getTime());
+        $('#day-txt3 span').append(d.getDate());
+        var d = new Date(date.getTime() + day);
+        $('#day-txt4 span').append(d.getDate());
+        var d = new Date(date.getTime() + day * 2);
+        $('#day-txt5 span').append(d.getDate());
+    },
+
+    clickDateBtn: function (){
+        var day = 24 * 60 * 60 * 1000;
+        if ($(this).attr('id') == 'day-txt1')
+            window.PN.journalMenu.date = new Date(window.PN.journalMenu.date.getTime() - day * 2);
+        else if ($(this).attr('id') == 'day-txt2')
+            window.PN.journalMenu.date = new Date(window.PN.journalMenu.date.getTime() - day);
+        else if ($(this).attr('id') == 'day-txt4')
+            window.PN.journalMenu.date = new Date(window.PN.journalMenu.date.getTime() + day);
+        else if ($(this).attr('id') == 'day-txt5') 
+            window.PN.journalMenu.date = new Date(window.PN.journalMenu.date.getTime() + day * 2);
+            window.PN.journalMenu.redrawDateMenu();
+    }
+
+
+}

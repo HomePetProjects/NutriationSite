@@ -192,6 +192,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Meal.cs">
+      <DependentUpon>NutriationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MeasureUnit.cs">
+      <DependentUpon>NutriationModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MenuElement.cs" />
     <Compile Include="Models\NutriationModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -212,6 +218,9 @@
       <DependentUpon>NutriationModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ParameterValue.cs">
+      <DependentUpon>NutriationModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
       <DependentUpon>NutriationModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -274,6 +283,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>NutriationModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Images\DatePicke30px.png" />
     <Content Include="Models\NutriationModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>NutriationModel.edmx</DependentUpon>
@@ -290,7 +300,6 @@
     <None Include="Properties\PublishProfiles\igormzg.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\App\Home\Chart.js" />
-    <Content Include="Scripts\App\Home\Layout.js" />
     <Content Include="Scripts\App\main.js" />
     <Content Include="Scripts\App\Plugins\jquery.datetimepicker.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -350,6 +359,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\_Chart.cshtml" />
     <Content Include="Views\Home\Dialogs.cshtml" />
+    <Content Include="Views\Home\Journal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

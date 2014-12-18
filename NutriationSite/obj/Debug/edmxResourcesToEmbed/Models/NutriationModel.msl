@@ -22,5 +22,38 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Meal">
+      <EntityTypeMapping TypeName="Model.Meal">
+        <MappingFragment StoreEntitySet="Meal">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Weight" ColumnName="Weight" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MeasureUnit">
+      <EntityTypeMapping TypeName="Model.MeasureUnit">
+        <MappingFragment StoreEntitySet="MeasureUnit">
+          <ScalarProperty Name="MeasUnit" ColumnName="MeasUnit" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Product">
+      <EntityTypeMapping TypeName="Model.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="MeasureUnitId" ColumnName="MeasureUnitId" />
+          <ScalarProperty Name="Carbohydrates" ColumnName="Carbohydrates" />
+          <ScalarProperty Name="Fat" ColumnName="Fat" />
+          <ScalarProperty Name="Protein" ColumnName="Protein" />
+          <ScalarProperty Name="Calories" ColumnName="Calories" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

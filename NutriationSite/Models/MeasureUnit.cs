@@ -12,14 +12,16 @@ namespace NutriationSite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ParameterValue
+    public partial class MeasureUnit
     {
-        public int Id { get; set; }
-        public int Parameter_Id { get; set; }
-        public double Value { get; set; }
-        public System.DateTime DateTime { get; set; }
-        public string Comment { get; set; }
+        public MeasureUnit()
+        {
+            this.Product = new HashSet<Product>();
+        }
     
-        public virtual Parameter Parameters { get; set; }
+        public int Id { get; set; }
+        public string MeasUnit { get; set; }
+    
+        public virtual ICollection<Product> Product { get; set; }
     }
 }

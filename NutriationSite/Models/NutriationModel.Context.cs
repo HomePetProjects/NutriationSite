@@ -15,7 +15,8 @@ namespace NutriationSite.Models
     
     public partial class NutriationContext : DbContext
     {
-        public NutriationContext(): base("name=EntitiesNutriation")
+        public NutriationContext()
+            : base("name=EntitiesNutriation")
         {
         }
     
@@ -26,5 +27,8 @@ namespace NutriationSite.Models
     
         public DbSet<Parameter> Parameters { get; set; }
         public DbSet<ParameterValue> ParameterValues { get; set; }
+        public DbSet<Meal> Meals { get; set; }
+        public DbSet<MeasureUnit> MeasureUnits { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 }

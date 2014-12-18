@@ -12,14 +12,14 @@ namespace NutriationSite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ParameterValue
+    public partial class Meal
     {
         public int Id { get; set; }
-        public int Parameter_Id { get; set; }
-        public double Value { get; set; }
-        public System.DateTime DateTime { get; set; }
-        public string Comment { get; set; }
+        public int UserId { get; set; }
+        public System.DateTime Date { get; set; }
+        public double Weight { get; set; }
+        public int ProductId { get; set; }
     
-        public virtual Parameter Parameters { get; set; }
+        public virtual Product Product { get; set; }
     }
 }
