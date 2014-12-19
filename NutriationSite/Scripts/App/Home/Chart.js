@@ -2,6 +2,7 @@
 $(document).ready(function () {
     window.PN.chart.init();
     window.PN.journalMenu.init();
+    window.PN.journalBody.init();
 });
 
 //Namespace class
@@ -355,7 +356,10 @@ window.PN.journalMenu = {
                 window.PN.journalMenu.redrawDateMenu();
             },
             onShow: function (dt) {
-                dt = new Date(dt.getTime() + 24 * 60 * 60 * 1000);
+                this.setOptions({
+                    value: window.PN.journalMenu.date
+                });
+                //dt = new Date(dt.getTime() + 24 * 60 * 60 * 1000);
             },
         })
     },
@@ -368,14 +372,19 @@ window.PN.journalMenu = {
         $('.day-txt-class span').empty();
         var d = new Date(date.getTime() - day * 2);
         $('#day-txt1 span').append(d.getDate());
+        $('#day1').prop('checked', false);
         var d = new Date(date.getTime() - day);
         $('#day-txt2 span').append(d.getDate());
+        $('#day2').prop('checked', false);
         var d = new Date(date.getTime());
         $('#day-txt3 span').append(d.getDate());
+        $('#day3').prop('checked', true);
         var d = new Date(date.getTime() + day);
         $('#day-txt4 span').append(d.getDate());
+        $('#day4').prop('checked', false);
         var d = new Date(date.getTime() + day * 2);
         $('#day-txt5 span').append(d.getDate());
+        $('#day5').prop('checked', false);
     },
 
     clickDateBtn: function (){
@@ -391,5 +400,28 @@ window.PN.journalMenu = {
             window.PN.journalMenu.redrawDateMenu();
     }
 
+}
 
+window.PN.journalBody = {
+
+    init: function () {
+        this.getMeals();
+    },
+
+    redrawJournal: function () {
+    },
+
+    getMeals: function(){
+        $.ajax({
+            type: 'POST',
+            url: "/Home/GetMealsByDate",
+            data: { date: window.PN.journalMenu.date },
+            success: function (meals) {
+                alert(meals);
+               },
+               error: function (er) {
+                   alert(er);
+               }
+           })
+    }
 }

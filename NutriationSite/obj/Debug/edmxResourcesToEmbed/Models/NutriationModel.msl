@@ -22,7 +22,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Meal">
+    <EntitySetMapping Name="Meals">
       <EntityTypeMapping TypeName="Model.Meal">
         <MappingFragment StoreEntitySet="Meal">
           <ScalarProperty Name="ProductId" ColumnName="ProductId" />
@@ -33,7 +33,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MeasureUnit">
+    <EntitySetMapping Name="MeasureUnits">
       <EntityTypeMapping TypeName="Model.MeasureUnit">
         <MappingFragment StoreEntitySet="MeasureUnit">
           <ScalarProperty Name="MeasUnit" ColumnName="MeasUnit" />
@@ -41,7 +41,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Product">
+    <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="Model.Product">
         <MappingFragment StoreEntitySet="Product">
           <ScalarProperty Name="UserId" ColumnName="UserId" />

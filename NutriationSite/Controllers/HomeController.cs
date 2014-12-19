@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using NutriationSite.Models;
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace NutriationSite.Controllers
 {
@@ -18,8 +19,12 @@ namespace NutriationSite.Controllers
             if (Request.IsAuthenticated)
             {
                 ViewBag.ParamValue = _nutrContext.ParameterValues;
-                int id = (from a in _usContext.UserProfiles where a.UserName == User.Identity.Name select a.UserId).First();
-                return View(_nutrContext.Parameters.Where(e => e.User_Id == id));
+                if(User.Identity.Name != null)
+                {
+                    int id = (from a in _usContext.UserProfiles where a.UserName == User.Identity.Name select a.UserId).First();
+                    return View(_nutrContext.Parameters.Where(e => e.User_Id == id));
+                }
+                return View();
             }
             else return View();
         }
@@ -154,6 +159,29 @@ namespace NutriationSite.Controllers
 
             string json = JsonConvert.SerializeObject(paramObj);
             return json;
+        }
+
+        [HttpPost]
+        public string GetMealsByDate(string date)
+        {
+            DateTime dt = ConvertJsDate(date);
+            var list = _nutrContext.Meals.Select(e => new { Id = e.Id, Product = e.Product });
+
+            string json = JsonConvert.SerializeObject(list);
+            return json;
+        }
+
+        private DateTime ConvertJsDate(string jsDate)
+        {
+            string formatString = "ddd MMM d yyyy HH:mm:ss";
+
+            var gmtIndex = jsDate.IndexOf(" GMT");
+            if (gmtIndex > -1)
+            {
+                jsDate = jsDate.Remove(gmtIndex);
+                return DateTime.ParseExact(jsDate, formatString, null);
+            }
+            return DateTime.Parse(jsDate);
         }
     }
 }

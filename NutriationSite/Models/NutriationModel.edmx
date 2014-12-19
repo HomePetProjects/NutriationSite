@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="Weight" Type="float" Nullable="false" />
@@ -19,7 +19,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MeasUnit" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Parameters">
@@ -45,7 +45,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Calories" Type="float" Nullable="false" />
           <Property Name="Protein" Type="float" Nullable="false" />
@@ -159,16 +159,16 @@
             <End Role="Parameters" EntitySet="Parameters" />
             <End Role="ParameterValues" EntitySet="ParameterValues" />
           </AssociationSet>
-          <EntitySet Name="Meal" EntityType="Model.Meal" />
-          <EntitySet Name="MeasureUnit" EntityType="Model.MeasureUnit" />
-          <EntitySet Name="Product" EntityType="Model.Product" />
+          <EntitySet Name="Meals" EntityType="Model.Meal" />
+          <EntitySet Name="MeasureUnits" EntityType="Model.MeasureUnit" />
+          <EntitySet Name="Products" EntityType="Model.Product" />
           <AssociationSet Name="FK_Meal_Product" Association="Model.FK_Meal_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Meal" EntitySet="Meal" />
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Meal" EntitySet="Meals" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_Measure" Association="Model.FK_Product_Measure">
-            <End Role="MeasureUnit" EntitySet="MeasureUnit" />
-            <End Role="Product" EntitySet="Product" />
+            <End Role="MeasureUnit" EntitySet="MeasureUnits" />
+            <End Role="Product" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Meal">
@@ -258,7 +258,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Meal">
+          <EntitySetMapping Name="Meals">
             <EntityTypeMapping TypeName="Model.Meal">
               <MappingFragment StoreEntitySet="Meal">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
@@ -269,7 +269,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MeasureUnit">
+          <EntitySetMapping Name="MeasureUnits">
             <EntityTypeMapping TypeName="Model.MeasureUnit">
               <MappingFragment StoreEntitySet="MeasureUnit">
                 <ScalarProperty Name="MeasUnit" ColumnName="MeasUnit" />
@@ -277,7 +277,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Product">
+          <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="Model.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />

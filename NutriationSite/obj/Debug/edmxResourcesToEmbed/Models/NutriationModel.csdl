@@ -42,16 +42,16 @@
       <End Role="Parameters" EntitySet="Parameters" />
       <End Role="ParameterValues" EntitySet="ParameterValues" />
     </AssociationSet>
-    <EntitySet Name="Meal" EntityType="Model.Meal" />
-    <EntitySet Name="MeasureUnit" EntityType="Model.MeasureUnit" />
-    <EntitySet Name="Product" EntityType="Model.Product" />
+    <EntitySet Name="Meals" EntityType="Model.Meal" />
+    <EntitySet Name="MeasureUnits" EntityType="Model.MeasureUnit" />
+    <EntitySet Name="Products" EntityType="Model.Product" />
     <AssociationSet Name="FK_Meal_Product" Association="Model.FK_Meal_Product">
-      <End Role="Product" EntitySet="Product" />
-      <End Role="Meal" EntitySet="Meal" />
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Meal" EntitySet="Meals" />
     </AssociationSet>
     <AssociationSet Name="FK_Product_Measure" Association="Model.FK_Product_Measure">
-      <End Role="MeasureUnit" EntitySet="MeasureUnit" />
-      <End Role="Product" EntitySet="Product" />
+      <End Role="MeasureUnit" EntitySet="MeasureUnits" />
+      <End Role="Product" EntitySet="Products" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Meal">
