@@ -27,7 +27,7 @@ namespace NutriationSite.Models
         public double Carbohydrates { get; set; }
         public int MeasureUnitId { get; set; }
         public int UserId { get; set; }
-
+    
         public virtual ICollection<Meal> Meal { get; set; }
         public virtual MeasureUnit MeasureUnit { get; set; }
     }

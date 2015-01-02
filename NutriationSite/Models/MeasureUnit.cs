@@ -21,6 +21,7 @@ namespace NutriationSite.Models
     
         public int Id { get; set; }
         public string MeasUnit { get; set; }
+    
         public virtual ICollection<Product> Product { get; set; }
     }
 }

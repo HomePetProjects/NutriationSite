@@ -14,6 +14,11 @@ namespace NutriationSite.Controllers
         NutriationContext _nutrContext = new NutriationContext();
         UsersContext _usContext = new UsersContext();
 
+        public HomeController()
+        {
+            _nutrContext.Configuration.LazyLoadingEnabled = false;
+        }
+
         public ActionResult Index()
         {
             if (Request.IsAuthenticated)
@@ -165,9 +170,42 @@ namespace NutriationSite.Controllers
         public string GetMealsByDate(string date)
         {
             DateTime dt = ConvertJsDate(date);
-            var list = _nutrContext.Meals.Select(e => new { Id = e.Id, Product = e.Product });
+            List<Meal> list = _nutrContext.Meals.Select(e => e).ToList();
+            list = list.Where(e => e.Date.Date == dt.Date).ToList();
 
-            string json = JsonConvert.SerializeObject(list);
+            object[] outArr = new object[24];
+            for(int i = 0; i < 24; i++)
+            {
+                List<Meal> arr = list.Where(e => e.Date.Hour == i).ToList();
+                List<object> outElems = new List<object>();
+                arr.ForEach(e => outElems.Add(new { Id = e.Id, ProductId = e.ProductId, Weight = e.Weight, Date = e.Date }));
+                outArr[i] = outElems;
+            }
+
+            string json = JsonConvert.SerializeObject(outArr);
+            return json;
+        }
+
+        [HttpPost]
+        public string DeleteMeal(int id)
+        {
+            Meal meal = _nutrContext.Meals.Where(e => e.Id == id).First();
+            if (meal != null)
+            {
+                _nutrContext.Meals.Remove(meal);
+                _nutrContext.SaveChanges();
+            }
+
+            return "";
+        }
+
+        [HttpPost]
+        public string GetProducts()
+        {
+            int user_Id = (from a in _usContext.UserProfiles where a.UserName == User.Identity.Name select a.UserId).First();
+            List<Product> productList = _nutrContext.Products.Where(e => e.UserId == user_Id).ToList();
+
+            string json = JsonConvert.SerializeObject(productList);
             return json;
         }
 
