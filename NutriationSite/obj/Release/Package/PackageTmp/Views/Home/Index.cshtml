@@ -1,0 +1,37 @@
+﻿@model IEnumerable<NutriationSite.Models.Parameter>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    if (Request.IsAuthenticated)
+    {
+        <h1>Parameters</h1>
+        foreach (NutriationSite.Models.Parameter i in @Model)
+        {
+            @Html.Partial("_Chart", i);
+        }
+        <br />
+        <p><input id="add-parameter-btn" type="button" value="Add new parameter"></p>
+    }
+    else
+    {
+        <h1>Greetings</h1>
+        <p>This is a home page</p>
+        <p>Pleas @Html.ActionLink("login", "Login", "Account")</p>
+    }
+}
+
+<!--Hidden dialog-->
+@Html.Partial("Dialogs");
+
+@Styles.Render("~/Content/ParamPage.css")
+@Styles.Render("~/Content/Plugins/jquery.datetimepicker.css")
+@Scripts.Render("https://www.google.com/jsapi")
+@Scripts.Render("~/Scripts/App/Home/Chart.js")
+@Scripts.Render("~/Scripts/App/Plugins/jquery.datetimepicker.js")
+
+<script>
+    google.load("visualization", "1", { packages: ["corechart"] });
+</script>
