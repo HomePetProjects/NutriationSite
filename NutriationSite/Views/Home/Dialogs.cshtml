@@ -65,9 +65,49 @@
 </div>
 
 <div id="add-products-dialog" style="display:none">
-    <div>
-        <input id="open-add-product-dialog" style="width: 20px; height: 20px; padding: 0px; font-size: 1em" value="+" type="button" />
-        <span>Add product</span>
-    </div>
-    <div id="products-list"></div>
+
+    @Html.Label("product", "Product:")
+    <span id="product-empty-validation-message" class="validation-message">Please enter product</span>
+    <span id="product-notfound-validation-message" class="validation-message">Product not found</span>
+    <input id="serch-product"/>
+
+    @Html.Label("Weight", "Weight:")
+    <span id="value-empty-validation-message" class="validation-message">Please enter value</span>
+    <span id="value-isnumber-validation-message" class="validation-message">Please enter number</span>
+    <input id="weight" type="text" />
+    <br />
+    <input id="add-new-product" value="Add product" type="button" style="font-size: 1em" />
+    <input id="edit-product" value="Edit product" type="button" style="font-size: 1em" />
+    <input id="delete-product" value="Delete product" type="button" style="font-size: 1em" />
+</div>
+
+<div id="new-edit-products-dialog" style="display:none">
+
+    @Html.Label("name", "Name:")
+    <span id="name-empty-validation-message" class="validation-message">Please enter name</span>
+    <span id="name-isbusy-validation-message" class="validation-message">This name alredy busy</span>
+    <input id="name" type="text" />
+
+    @Html.Label("calories", "Calories:")
+    <span id="calories-empty-validation-message" class="validation-message">Please enter value</span>
+    <span id="calories-isnumber-validation-message" class="validation-message">Please enter number</span>
+    <input id="calories" type="text" />
+
+    @Html.Label("proteins", "Proteins:")
+    <span id="proteins-empty-validation-message" class="validation-message">Please enter value</span>
+    <span id="proteins-isnumber-validation-message" class="validation-message">Please enter number</span>
+    <input id="proteins" type="text" />
+
+    @Html.Label("fats", "Fats:")
+    <span id="fats-empty-validation-message" class="validation-message">Please enter value</span>
+    <span id="fats-isnumber-validation-message" class="validation-message">Please enter number</span>
+    <input id="fats" type="text" />
+
+    @Html.Label("carbohydrates", "Carbohydrates:")
+    <span id="carbohydrates-empty-validation-message" class="validation-message">Please enter value</span>
+    <span id="carbohydrates-isnumber-validation-message" class="validation-message">Please enter number</span>
+    <input id="carbohydrates" type="text" />
+
+    @Html.Label("measure", "Measure:")
+    <select id="measure"></select>
 </div>

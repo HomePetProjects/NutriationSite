@@ -300,6 +300,7 @@
     <None Include="Properties\PublishProfiles\igormzg.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\App\Home\Chart.js" />
+    <Content Include="Scripts\App\Home\Journal.js" />
     <Content Include="Scripts\App\main.js" />
     <Content Include="Scripts\App\Plugins\jquery.datetimepicker.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />

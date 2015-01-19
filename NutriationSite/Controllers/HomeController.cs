@@ -13,7 +13,6 @@ namespace NutriationSite.Controllers
     {
         NutriationContext _nutrContext = new NutriationContext();
         UsersContext _usContext = new UsersContext();
-
         public HomeController()
         {
             _nutrContext.Configuration.LazyLoadingEnabled = false;
@@ -170,8 +169,10 @@ namespace NutriationSite.Controllers
         public string GetMealsByDate(string date)
         {
             DateTime dt = ConvertJsDate(date);
+            int user_Id = (from a in _usContext.UserProfiles where a.UserName == User.Identity.Name select a.UserId).First();
+
             List<Meal> list = _nutrContext.Meals.Select(e => e).ToList();
-            list = list.Where(e => e.Date.Date == dt.Date).ToList();
+            list = list.Where(e => e.Date.Date == dt.Date && e.UserId == user_Id).ToList();
 
             object[] outArr = new object[24];
             for(int i = 0; i < 24; i++)
@@ -200,15 +201,84 @@ namespace NutriationSite.Controllers
         }
 
         [HttpPost]
+        public void AddMeal(int productId, double weight, string date)
+        {
+            Meal meal = new Meal();
+            meal.Date = ConvertJsDate(date);
+            meal.UserId = (from a in _usContext.UserProfiles where a.UserName == User.Identity.Name select a.UserId).First();
+            meal.Weight = weight;
+            meal.ProductId = productId;
+            _nutrContext.Meals.Add(meal);
+            _nutrContext.SaveChanges();
+        }
+
+        [HttpPost]
         public string GetProducts()
         {
-            int user_Id = (from a in _usContext.UserProfiles where a.UserName == User.Identity.Name select a.UserId).First();
-            List<Product> productList = _nutrContext.Products.Where(e => e.UserId == user_Id).ToList();
+            int user_Id = (from a in _usContext.UserProfiles 
+                           where a.UserName == User.Identity.Name 
+                           select a.UserId).First();
+            List<Product> productList = _nutrContext.Products.Where(e => e.UserId == user_Id || e.Base == true).ToList();
 
             string json = JsonConvert.SerializeObject(productList);
             return json;
         }
 
+        [HttpPost]
+        public string AddProduct(string name, double calories, double proteins, double fats, double carbohydrates, int measureId)
+        {
+            Product prod = new Product();
+            prod.Name = name;
+            prod.Calories = calories;
+            prod.Protein = proteins;
+            prod.Fat = fats;
+            prod.Carbohydrates = carbohydrates;
+            prod.MeasureUnitId = measureId;
+            prod.UserId = (from a in _usContext.UserProfiles 
+                           where a.UserName == User.Identity.Name 
+                           select a.UserId).First();
+
+            _nutrContext.Products.Add(prod);
+            _nutrContext.SaveChanges();
+
+            return GetProducts();
+        }
+
+        [HttpPost]
+        public string EditProduct(int id, string name, double calories, double proteins, double fats, double carbohydrates, int measureId)
+        {
+            Product prod = _nutrContext.Products.Where(e => e.Id == id).First();
+            prod.Name = name;
+            prod.Calories = calories;
+            prod.Protein = proteins;
+            prod.Fat = fats;
+            prod.Carbohydrates = carbohydrates;
+            prod.MeasureUnitId = measureId;
+            prod.UserId = (from a in _usContext.UserProfiles
+                           where a.UserName == User.Identity.Name
+                           select a.UserId).First();
+
+            _nutrContext.SaveChanges();
+
+            return GetProducts();
+        }
+
+        [HttpPost]
+        public string DeleteProduct(int id)
+        {
+            Product prod = _nutrContext.Products.Where(e => e.Id == id).First();
+            _nutrContext.Products.Remove(prod);
+            _nutrContext.SaveChanges();
+
+            return GetProducts();
+        }
+
+        [HttpPost]
+        public string GetMeasures()
+        {
+            List<MeasureUnit> measures = _nutrContext.MeasureUnits.Select(e => e).ToList();
+            return JsonConvert.SerializeObject(measures);
+        }
         private DateTime ConvertJsDate(string jsDate)
         {
             string formatString = "ddd MMM d yyyy HH:mm:ss";

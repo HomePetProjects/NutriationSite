@@ -44,6 +44,7 @@
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="Model.Product">
         <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="Base" ColumnName="Base" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="MeasureUnitId" ColumnName="MeasureUnitId" />
           <ScalarProperty Name="Carbohydrates" ColumnName="Carbohydrates" />
