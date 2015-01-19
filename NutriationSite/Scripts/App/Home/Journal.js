@@ -113,11 +113,13 @@ window.PN.journal = {
         },
 
         showAddBtn: function () {
+            $(this).children('div').show();
             $(this).children('input').show();
         },
 
         hideAddBtn: function () {
             $(this).children('input').hide();
+            $(this).children('div').hide();
         },
 
         calculateOneDay: function (hour) {
@@ -129,7 +131,7 @@ window.PN.journal = {
             var foods = window.PN.journal.foods[hour];
             var products = window.PN.journal.products;
 
-            if (window.PN.journal.foods[hour].length == 0) return '';
+            if (window.PN.journal.foods[hour].length == 0) return '<div style="display: none"><p style="font-weight:bold; text-align: center">' + hour + 'h</p><HR></div>';
 
             for (var j = 0; j < foods.length; j++) {
                 for (var k = 0; k < products.length; k++) {
@@ -146,7 +148,7 @@ window.PN.journal = {
             Protein = +Protein.toFixed(2);
             Fat = +Fat.toFixed(2);
             Carbohydrates = +Carbohydrates.toFixed(2);
-            return hour + '<p>Calories:</p><p>' + Calories + '</p><p>Proteins:</p><p>' + Protein + '</p><p>Fats:</p><p>' + Fat + '</p><p>Carbohydrates:</p><p>' + Carbohydrates + '</p>';
+            return '<p style="font-weight:bold; text-align: center">' + hour + 'h</p><HR><p style="font-weight:bold">Calories:</p><p>' + Calories + '</p><p style="font-weight:bold">Proteins:</p><p>' + Protein + '</p><p style="font-weight:bold">Fats:</p><p>' + Fat + '</p><p style="font-weight:bold">Carbohydrates:</p><p>' + Carbohydrates + '</p>';
         },
 
         getMeals: function () {
