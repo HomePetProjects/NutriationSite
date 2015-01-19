@@ -48,6 +48,7 @@
     <Property Name="Carbohydrates" Type="float" Nullable="false" />
     <Property Name="MeasureUnitId" Type="int" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Base" Type="bit" Nullable="false" />
   </EntityType>
   <Association Name="FK">
     <End Role="Parameters" Type="Self.Parameters" Multiplicity="1">

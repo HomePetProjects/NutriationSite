@@ -53,6 +53,7 @@
           <Property Name="Carbohydrates" Type="float" Nullable="false" />
           <Property Name="MeasureUnitId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Base" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK">
           <End Role="Parameters" Type="Self.Parameters" Multiplicity="1">
@@ -204,6 +205,7 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Meal" Relationship="Model.FK_Meal_Product" FromRole="Product" ToRole="Meal" />
           <NavigationProperty Name="MeasureUnit" Relationship="Model.FK_Product_Measure" FromRole="Product" ToRole="MeasureUnit" />
+          <Property Name="Base" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Meal_Product">
           <End Type="Model.Product" Role="Product" Multiplicity="1" />
@@ -280,6 +282,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="Model.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Base" ColumnName="Base" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="MeasureUnitId" ColumnName="MeasureUnitId" />
                 <ScalarProperty Name="Carbohydrates" ColumnName="Carbohydrates" />

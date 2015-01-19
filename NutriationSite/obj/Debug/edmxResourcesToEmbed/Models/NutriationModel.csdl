@@ -87,6 +87,7 @@
     <Property Name="UserId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Meal" Relationship="Model.FK_Meal_Product" FromRole="Product" ToRole="Meal" />
     <NavigationProperty Name="MeasureUnit" Relationship="Model.FK_Product_Measure" FromRole="Product" ToRole="MeasureUnit" />
+    <Property Name="Base" Type="Boolean" Nullable="false" />
   </EntityType>
   <Association Name="FK_Meal_Product">
     <End Type="Model.Product" Role="Product" Multiplicity="1" />

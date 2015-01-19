@@ -1,0 +1,57 @@
+﻿<div id="add-value-dialog" title="Add new value" style="display:none">
+
+    @using (Html.BeginForm("AddValue", "Home", FormMethod.Post, new { id = "value-form" }))
+    {
+        @Html.Hidden("Parameter_Id")
+
+        <div class="editor-field">
+            @Html.Label("Value", "Value:")
+            <span id="value-empty-validation-message" class="validation-message">Please enter value</span>
+            <span id="value-isnumber-validation-message" class="validation-message">Please enter number</span>
+            @Html.Editor("Value", new { style = "width:300px" })
+        </div>
+        <div class="editor-label">
+            @Html.Label("Comment", "Comment:")
+            @Html.TextArea("Comment", new { style = "width:300px" })
+        </div>
+    }
+</div>
+
+<div id="add-parameter-dialog" title="Add new parameter" style="display:none">
+
+    @using (Html.BeginForm("AddParameter", "Home", "POST"))
+    {
+        <div class="editor-field">
+            @Html.Label("Name", "Name:")
+            <span id="name-validation-message" class="validation-message">Please enter name</span>
+            @Html.Editor("Name", new { style = "width:300px" })
+        </div>
+        <div class="editor-label">
+            @Html.Label("Measure_Unit", "Unit:")
+            @Html.Editor("Measure_Unit", new { style = "width:300px" })
+        </div>
+    }
+</div>
+
+<div id="edit-value-dialog" title="Edit value" style="display:none">
+
+    @using (Html.BeginForm("EditValue", "Home", FormMethod.Post, new { id = "edit-value-form" }))
+    {
+        @Html.Hidden("Parameter_Id")
+        <div class="editor-field">
+            @Html.Label("Value", "Value:")
+            <span id="value-empty-validation-message" class="validation-message">Please enter value</span>
+            <span id="value-isnumber-validation-message" class="validation-message">Please enter number</span>
+            @Html.Editor("Value", new { style = "width:300px" })
+        </div>
+        <div class="editor-field">
+            @Html.Label("DateTime", "Date:")
+            <span id="date-empty-validation-message" class="validation-message">Please enter date</span>
+            <input id="DateTime" type="text">
+        </div>
+        <div class="editor-label">
+            @Html.Label("Comment", "Comment:")
+            @Html.TextArea("Comment", new { style = "width:300px" })
+        </div>
+    }
+</div>
