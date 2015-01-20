@@ -3,7 +3,7 @@
 <h2>@Model.Name</h2>
 @{
     string d = "chart" + @Model.Id;
-    <div id=@d style="position: relative" onmouseover="window.PN.chart.btnDelShow(@Model.Id)" onmouseout="window.PN.chart.btnDelHide(@Model.Id)"></div>
+    <div id=@d style="position: relative; border: 1px solid #787878" onmouseover="window.PN.chart.btnDelShow(@Model.Id)" onmouseout="window.PN.chart.btnDelHide(@Model.Id)"></div>
 
     <input type="button" value="Add Value" class="viewDialog" param-id="@Model.Id" style="float:right">
 }

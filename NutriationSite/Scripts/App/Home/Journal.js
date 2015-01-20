@@ -108,13 +108,16 @@ window.PN.journal = {
                 $('#hour' + i).append(window.PN.journal.journalBody.calculateOneDay(i - 1));
                 $('#hour' + i).on('mouseover', window.PN.journal.journalBody.showAddBtn);
                 $('#hour' + i).on('mouseout', window.PN.journal.journalBody.hideAddBtn);
+                $('#hour' + i).css('position', 'relative');
+                $('#hour' + i).append('<div id="wrap" style="display:block; left:0px; text-align: center; position: absolute; width: 100%; bottom: 10px"><input type="Button" style="display: none; width: 20px; height: 20px; padding: 0px; font-size: 1em; margin:0px" value="+"></input></div>');
             }
-            $('#hourList li').append('<input type="Button" style="width:20px; height:20px; z-index:1; display: none"></input>').on("click", window.PN.journal.viewProductsDialog);
+            $('#hourList input').on('click', window.PN.journal.viewProductsDialog);
         },
 
         showAddBtn: function () {
             $(this).children('div').show();
             $(this).children('input').show();
+            $(this).children('#wrap').children('input').show();
         },
 
         hideAddBtn: function () {
@@ -183,10 +186,12 @@ window.PN.journal = {
     },
 
     viewProductsDialog: function () {
-        var str = $(this).attr('id');
+        var str = $(this).parent().parent().attr('id');
         str = str.substr(4, str.length - (str.length - 4));
 
         window.PN.journal.journalBody.currentHour = str - 1;
+
+        $("li.item-a").parent()
 
         window.PN.journal.redrawProductDialog(str - 1);
         $("#view-products-dialog").dialog({

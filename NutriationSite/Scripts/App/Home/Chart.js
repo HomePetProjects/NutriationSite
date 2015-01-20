@@ -88,7 +88,7 @@ window.PN.chart = {
 
                     //add delete button
                     $('#chart' + input[i].Parameter.Id).prepend('<input id="delete' + input[i].Parameter.Id + '" type="button" onclick="window.PN.chart.btnDelClick(' + input[i].Parameter.Id +
-                        ')" style="position: absolute; width:20px; height:20px; top:10px; right:10px; z-index:1; display: none"></input>');
+                        ')" style="position: absolute; width:20px; height:20px; top:10px; right:10px; z-index:1; display: none; padding: 0px;" value="x"></input>');
                 }
             }
         })
@@ -127,7 +127,7 @@ window.PN.chart = {
 
                         chart.draw(data, { tooltip: { trigger: 'selection' } });
 
-                        $('#chart' + input.Parameter.Id).prepend('<input id="delete' + input.Parameter.Id + '" type="button" onclick="window.PN.chart.btnDelClick(' + input.Parameter.Id + ')" style="position: absolute; width:20px; height:20px; top:10px; right:10px; z-index:1; display: none"></input>')
+                        $('#chart' + input.Parameter.Id).prepend('<input id="delete' + input.Parameter.Id + '" type="button" onclick="window.PN.chart.btnDelClick(' + input.Parameter.Id + ')" style="position: absolute; width:20px; height:20px; top:10px; right:10px; z-index:1; display: none; padding: 0px;" value="x"></input>')
                 }
             })
     },
