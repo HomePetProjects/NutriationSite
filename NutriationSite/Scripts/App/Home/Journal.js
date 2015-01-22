@@ -105,7 +105,7 @@ window.PN.journal = {
             $('#hourList li').empty();
 
             for (var i = 1; i <= window.PN.journal.foods.length; i++) {
-                $('#hour' + i).append(window.PN.journal.journalBody.calculateOneDay(i - 1));
+                $('#hour' + i).append(window.PN.journal.journalBody.calculateOneHour(i - 1));
                 $('#hour' + i).on('mouseover', window.PN.journal.journalBody.showAddBtn);
                 $('#hour' + i).on('mouseout', window.PN.journal.journalBody.hideAddBtn);
                 $('#hour' + i).css('position', 'relative');
@@ -125,7 +125,7 @@ window.PN.journal = {
             $(this).children('div').hide();
         },
 
-        calculateOneDay: function (hour) {
+        calculateOneHour: function (hour) {
 
             var Calories = 0;
             var Protein = 0;
@@ -154,6 +154,37 @@ window.PN.journal = {
             return '<p style="font-weight:bold; text-align: center">' + hour + 'h</p><HR><p style="font-weight:bold">Calories:</p><p>' + Calories + '</p><p style="font-weight:bold">Proteins:</p><p>' + Protein + '</p><p style="font-weight:bold">Fats:</p><p>' + Fat + '</p><p style="font-weight:bold">Carbohydrates:</p><p>' + Carbohydrates + '</p>';
         },
 
+        calculateOneDay: function () {
+            $('#journal-day-resault').empty();
+
+            var Calories = 0;
+            var Protein = 0;
+            var Fat = 0;
+            var Carbohydrates = 0;
+            var products = window.PN.journal.products;
+            var foods = window.PN.journal.foods;
+
+            for (var i = 0; i < 24; i++) {
+                for (var j = 0; j < foods[i].length; j++) {
+                    for (var k = 0; k < products.length; k++) {
+                        if (foods[i][j].ProductId == products[k].Id) {
+                            Calories += foods[i][j].Weight / 100 * products[k].Calories;
+                            Protein += foods[i][j].Weight / 100 * products[k].Protein;
+                            Fat += foods[i][j].Weight / 100 * products[k].Fat;
+                            Carbohydrates += foods[i][j].Weight / 100 * products[k].Carbohydrates;
+                        }
+                    }
+                }
+            }
+
+            Calories = +Calories.toFixed(2);
+            Protein = +Protein.toFixed(2);
+            Fat = +Fat.toFixed(2);
+            Carbohydrates = +Carbohydrates.toFixed(2);
+            $('#journal-day-resault').append('<p style="font-weight:bold">Total per day: </p><span style="font-weight:bold">Calories: </span><span>' + Calories + ', </span><span style="font-weight:bold">Proteins: </span><span>' + Protein + ', </span><span style="font-weight:bold">Fats: </span><span>' + Fat + ', </span><span style="font-weight:bold">Carbohydrates: </span><span>' + Carbohydrates + '</span>');
+
+        },
+
         getMeals: function () {
             $.ajax({
                 type: 'POST',
@@ -162,6 +193,7 @@ window.PN.journal = {
                 success: function (meals) {
                     window.PN.journal.foods = $.parseJSON(meals);
                     window.PN.journal.journalBody.redrawJournal();
+                    window.PN.journal.journalBody.calculateOneDay();
                 },
                 error: function (er) {
                     alert(er.toString());
@@ -169,7 +201,7 @@ window.PN.journal = {
             })
         }
     },
-
+    
     dateChanget: function () {
         window.PN.journal.journalMenu.redrawDateMenu();
         window.PN.journal.journalBody.getMeals();
