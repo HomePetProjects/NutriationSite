@@ -7,7 +7,11 @@
 @{
     if (Request.IsAuthenticated)
     {
-        <h1>Parameters</h1>
+        @Html.Partial("Journal")
+        
+        <hr />
+
+        <h1 class="user-h1">Parameters</h1>
         foreach (NutriationSite.Models.Parameter i in @Model)
         {
             @Html.Partial("_Chart", i);
@@ -24,12 +28,13 @@
 }
 
 <!--Hidden dialog-->
-@Html.Partial("Dialogs");
+@Html.Partial("Dialogs")
 
 @Styles.Render("~/Content/ParamPage.css")
 @Styles.Render("~/Content/Plugins/jquery.datetimepicker.css")
 @Scripts.Render("https://www.google.com/jsapi")
 @Scripts.Render("~/Scripts/App/Home/Chart.js")
+@Scripts.Render("~/Scripts/App/Home/Journal.js")
 @Scripts.Render("~/Scripts/App/Plugins/jquery.datetimepicker.js")
 
 <script>

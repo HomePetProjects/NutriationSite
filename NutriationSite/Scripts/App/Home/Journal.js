@@ -186,9 +186,6 @@ window.PN.journal = {
                     window.PN.journal.foods = $.parseJSON(meals);
                     window.PN.journal.journalBody.redrawJournal();
                     window.PN.journal.journalBody.calculateOneDay();
-                },
-                error: function (er) {
-                    alert(er.toString());
                 }
             })
         }

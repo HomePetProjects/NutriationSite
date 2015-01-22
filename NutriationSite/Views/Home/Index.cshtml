@@ -10,8 +10,8 @@
         @Html.Partial("Journal")
         
         <hr />
-        
-        <h1>Parameters</h1>
+
+        <h1 class="user-h1">Parameters</h1>
         foreach (NutriationSite.Models.Parameter i in @Model)
         {
             @Html.Partial("_Chart", i);

@@ -1,6 +1,10 @@
 ﻿//Document ready
+//$(document).on('load', )
+
 $(document).ready(function () {
     window.PN.chart.init();
+    window.PN.journal.init();
+    window.PN.AddProductDialog.init();
 });
 
 //Namespace class
@@ -10,7 +14,7 @@ window.PN.chart = {
     init: function () {
         google.load("visualization", "1", { packages: ["corechart"] });
 
-        jQuery('#edit-value-dialog #DateTime').datetimepicker({ format: 'd.m.Y H:i' });
+        $('#edit-value-dialog #DateTime').datetimepicker({ format: 'd.m.Y H:i' });
 
         $(".viewDialog").on("click" , this.addValueDialogBtn);
         $(".close").on("click", this.closeDialogBtn);
@@ -84,7 +88,7 @@ window.PN.chart = {
 
                     //add delete button
                     $('#chart' + input[i].Parameter.Id).prepend('<input id="delete' + input[i].Parameter.Id + '" type="button" onclick="window.PN.chart.btnDelClick(' + input[i].Parameter.Id +
-                        ')" style="position: absolute; width:20px; height:20px; top:10px; right:10px; z-index:1; display: none"></input>');
+                        ')" style="position: absolute; width:20px; height:20px; top:10px; right:10px; z-index:1; display: none; padding: 0px;" value="x"></input>');
                 }
             }
         })
@@ -123,7 +127,7 @@ window.PN.chart = {
 
                         chart.draw(data, { tooltip: { trigger: 'selection' } });
 
-                        $('#chart' + input.Parameter.Id).prepend('<input id="delete' + input.Parameter.Id + '" type="button" onclick="window.PN.chart.btnDelClick(' + input.Parameter.Id + ')" style="position: absolute; width:20px; height:20px; top:10px; right:10px; z-index:1; display: none"></input>')
+                        $('#chart' + input.Parameter.Id).prepend('<input id="delete' + input.Parameter.Id + '" type="button" onclick="window.PN.chart.btnDelClick(' + input.Parameter.Id + ')" style="position: absolute; width:20px; height:20px; top:10px; right:10px; z-index:1; display: none; padding: 0px;" value="x"></input>')
                 }
             })
     },
@@ -169,7 +173,6 @@ window.PN.chart = {
     },
 
     //Buttons for EditValue Dialog
-    //
     editBtnClick: function (chart, valueId, parameterId) {
         var value = $('#edit-value-dialog #Value').attr('value');
         var date = $("#edit-value-dialog #DateTime").attr('value');
@@ -324,6 +327,3 @@ window.PN.chart = {
         })
     }
 }
-
-
-

@@ -1,7 +1,68 @@
-﻿
-.validation-message{
-    color:#ff0000;
+﻿.validation-message {
+    color: #ff0000;
     display: none;
     outline: none;
-    text-decoration:none;
+    text-decoration: none;
+}
+
+.mini-btn {
+    width: 20px;
+    height: 20px;
+    padding: 0px;
+    font-size: 1em;
+}
+
+#date-peacker {
+    width: 50px;
+    height: 30px;
+    margin: 0px;
+    padding: 0px;
+    margin-right: 2px;
+    float: left;
+}
+
+#date-menu input {
+    width: 50px;
+    height: 30px;
+}
+
+ul#hourList {
+    margin: 0; /* Обнуляем значение отступов */
+    padding: 0px; /* Значение полей */
+    height: 96%;
+}
+
+    ul#hourList li {
+        float: left;
+        display: block;
+        height: 100%;
+        padding: 5px;
+        overflow: hidden;
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 0.5em;
+        border-right: 1px solid #787878;
+    }
+
+#hours-journal{
+    height: 250px; 
+    border: 1px solid #787878; 
+    background-color: white;
+}
+
+.day-btn-class{
+    background: #efeeef url(/Content/custom-theme/images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x;
+    font-weight: bold;
+    color: #fff;
+    margin:0px;
+}
+    .day-btn-class#day3{
+    background: #efeeef url(/Content/custom-theme/images/ui-bg_flat_55_7AC0DA_40x100.png) 50% 50% repeat-x;
+    font-weight: bold;
+    color: #fff;
+}
+
+h1.user-h1{
+    margin-bottom:5px; 
+    text-align:center;
 }

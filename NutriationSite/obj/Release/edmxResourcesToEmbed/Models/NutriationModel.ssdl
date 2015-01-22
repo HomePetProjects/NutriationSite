@@ -1,5 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Meal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Weight" Type="float" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MeasureUnit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MeasUnit" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
   <EntityType Name="Parameters">
     <Key>
       <PropertyRef Name="Id" />
@@ -19,6 +36,20 @@
     <Property Name="DateTime" Type="datetime" Nullable="false" />
     <Property Name="Comment" Type="nvarchar(max)" />
   </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Calories" Type="float" Nullable="false" />
+    <Property Name="Protein" Type="float" Nullable="false" />
+    <Property Name="Fat" Type="float" Nullable="false" />
+    <Property Name="Carbohydrates" Type="float" Nullable="false" />
+    <Property Name="MeasureUnitId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Base" Type="bit" Nullable="false" />
+  </EntityType>
   <Association Name="FK">
     <End Role="Parameters" Type="Self.Parameters" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -33,12 +64,49 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Meal_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Meal" Type="Self.Meal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Meal">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Measure">
+    <End Role="MeasureUnit" Type="Self.MeasureUnit" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MeasureUnit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="MeasureUnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Meal" EntityType="Self.Meal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MeasureUnit" EntityType="Self.MeasureUnit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Parameters" EntityType="Self.Parameters" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ParameterValues" EntityType="Self.ParameterValues" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK" Association="Self.FK">
       <End Role="Parameters" EntitySet="Parameters" />
       <End Role="ParameterValues" EntitySet="ParameterValues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Meal_Product" Association="Self.FK_Meal_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Meal" EntitySet="Meal" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Measure" Association="Self.FK_Product_Measure">
+      <End Role="MeasureUnit" EntitySet="MeasureUnit" />
+      <End Role="Product" EntitySet="Product" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

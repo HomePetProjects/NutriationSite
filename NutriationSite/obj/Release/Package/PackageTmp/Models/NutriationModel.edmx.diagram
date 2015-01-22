@@ -8,6 +8,11 @@
         <EntityTypeShape EntityType="Model.Parameter" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.ParameterValue" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="Model.FK" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.Meal" Width="1.5" PointX="5.25" PointY="5.375" />
+        <EntityTypeShape EntityType="Model.MeasureUnit" Width="1.5" PointX="0.75" PointY="5.625" />
+        <EntityTypeShape EntityType="Model.Product" Width="1.5" PointX="3" PointY="5" />
+        <AssociationConnector Association="Model.FK_Meal_Product" />
+        <AssociationConnector Association="Model.FK_Product_Measure" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
