@@ -1,50 +1,13 @@
-﻿<style>
-
-    #date-peacker {
-        width: 50px;
-        height: 30px;
-        margin: 0px;
-        padding: 0px;
-        margin-right:2px;
-        float:left;
-    }
-    #date-menu input {
-        width: 50px;
-        height: 30px;
-    }
-
-    ul#hourList {
-        margin: 0; /* Обнуляем значение отступов */
-        padding: 0px; /* Значение полей */
-        height: 96%;
-    }
-
-        ul#hourList li {
-            float: left;
-            display: block;
-            height: 100%;
-            padding: 5px;
-            overflow: hidden;
-            text-decoration: none;
-            font-size: 14px;
-            line-height: 0.5em;
-            border-right: 1px solid #787878;
-        }
-
-</style>
-
-<div id="journal">
+﻿<div id="journal">
     <button id="date-peacker"><img src="Images/DatePicke30px.png"></button>
     <div id="date-menu">
-        <input type="radio" id="day1" name="radio"><label id="day-txt1" class="day-txt-class" for="day1"></label>
-        <input type="radio" id="day2" name="radio"><label id="day-txt2" class="day-txt-class" for="day2"></label>
-        <input type="radio" id="day3" name="radio" checked="checked"><label id="day-txt3" class="day-txt-class" for="day3"></label>
-        <input type="radio" id="day4" name="radio"><label id="day-txt4" class="day-txt-class" for="day4"></label>
-        <input type="radio" id="day5" name="radio"><label id="day-txt5" class="day-txt-class" for="day5"></label>
-        <input type="button" name="b1"/>
-        <input type="button" name="b2"/>
+        <input type="button" id="day1" class="day-btn-class" style="margin:0px" name="radio" />
+        <input type="button" id="day2" class="day-btn-class" style="margin:0px" name="radio" />
+        <input type="button" id="day3" class="day-btn-class" style="margin: 0px; background-color: #87CEEB" name="radio" />
+        <input type="button" id="day4" class="day-btn-class" style="margin:0px" name="radio" />
+        <input type="button" id="day5" class="day-btn-class" style="margin:0px" name="radio" />
     </div>
-    <div id="hours-journal" style="height: 250px; border: 1px solid #787878; background-color: white">
+    <div id="hours-journal">
         <ul id="hourList">
             @{
                 for(int i = 1; i <= 24; i++)

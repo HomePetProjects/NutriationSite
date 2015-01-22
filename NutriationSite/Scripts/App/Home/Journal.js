@@ -29,8 +29,7 @@ window.PN.journal = {
 
         init: function () {
             this.setMenuDatePicker();
-            $('#date-menu').buttonset();
-            $('.day-txt-class').on('click', this.clickDateBtn);
+            $('.day-btn-class').on('click', this.clickDateBtn);
         },
 
         setMenuDatePicker: function () {
@@ -60,36 +59,29 @@ window.PN.journal = {
 
         redrawDateMenu: function () {
             var date = window.PN.journal.journalMenu.date;
-            var menu = $('#date-menu');
             var day = 24 * 60 * 60 * 1000;
 
-            $('.day-txt-class span').empty();
             var d = new Date(date.getTime() - day * 2);
-            $('#day-txt1 span').append(d.getDate());
-            $('#day1').prop('checked', false);
+            $('#day1').attr('value', d.getDate());
             var d = new Date(date.getTime() - day);
-            $('#day-txt2 span').append(d.getDate());
-            $('#day2').prop('checked', false);
+            $('#day2').attr('value', d.getDate());
             var d = new Date(date.getTime());
-            $('#day-txt3 span').append(d.getDate());
-            $('#day3').prop('checked', true);
+            $('#day3').attr('value', d.getDate());
             var d = new Date(date.getTime() + day);
-            $('#day-txt4 span').append(d.getDate());
-            $('#day4').prop('checked', false);
+            $('#day4').attr('value', d.getDate());
             var d = new Date(date.getTime() + day * 2);
-            $('#day-txt5 span').append(d.getDate());
-            $('#day5').prop('checked', false);
+            $('#day5').attr('value', d.getDate());
         },
 
         clickDateBtn: function () {
             var day = 24 * 60 * 60 * 1000;
-            if ($(this).attr('id') == 'day-txt1')
+            if ($(this).attr('id') == 'day1')
                 window.PN.journal.journalMenu.date = new Date(window.PN.journal.journalMenu.date.getTime() - day * 2);
-            else if ($(this).attr('id') == 'day-txt2')
+            else if ($(this).attr('id') == 'day2')
                 window.PN.journal.journalMenu.date = new Date(window.PN.journal.journalMenu.date.getTime() - day);
-            else if ($(this).attr('id') == 'day-txt4')
+            else if ($(this).attr('id') == 'day4')
                 window.PN.journal.journalMenu.date = new Date(window.PN.journal.journalMenu.date.getTime() + day);
-            else if ($(this).attr('id') == 'day-txt5')
+            else if ($(this).attr('id') == 'day5')
                 window.PN.journal.journalMenu.date = new Date(window.PN.journal.journalMenu.date.getTime() + day * 2);
             window.PN.journal.dateChanget();
         }
