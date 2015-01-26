@@ -95,7 +95,6 @@ window.PN.journal = {
 
         redrawJournal: function () {
             $('#hourList li').empty();
-
             for (var i = 1; i <= window.PN.journal.foods.length; i++) {
                 $('#hour' + i).append(window.PN.journal.journalBody.calculateOneHour(i - 1));
                 $('#hour' + i).on('mouseover', window.PN.journal.journalBody.showAddBtn);
@@ -239,7 +238,7 @@ window.PN.journal = {
         for (var i = 0; i < foods.length; i++) {
             for (var j = 0; j < prods.length; j++) {
                 if (foods[i].ProductId == prods[j].Id) {
-                    $('#products-list').append('<div><input type="button" style="width:20px; height:20px; padding:0px; font-size:1em" value="-" foodId="' + foods[i].Id + '"/><span>' + prods[j].Name + '</span><span style="float:right">' + foods[i].Weight + ' mg</span></div>');
+                    $('#products-list').append('<div><input type="button" style="width:20px; height:20px; padding:0px; font-size:1em" value="-" foodId="' + foods[i].Id + '"/><span> ' + prods[j].Name + '</span><span style="float:right">' + foods[i].Weight + ' mg</span></div>');
                     break;
                 }
             }

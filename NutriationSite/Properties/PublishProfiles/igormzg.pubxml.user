@@ -106,7 +106,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/17/2014 02:29:27</publishTime>
     </File>
     <File Include="bin/NutriationSite.dll">
-      <publishTime>01/22/2015 20:39:38</publishTime>
+      <publishTime>01/26/2015 17:39:39</publishTime>
     </File>
     <File Include="bin/ru/Microsoft.Data.Edm.resources.dll">
       <publishTime>11/17/2014 02:29:37</publishTime>
@@ -415,7 +415,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/10/2014 01:44:35</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>11/26/2014 00:23:59</publishTime>
+      <publishTime>01/23/2015 16:21:18</publishTime>
     </File>
     <File Include="Scripts/App/Chart/Chart.js">
       <publishTime>06/12/2014 02:05:38</publishTime>
@@ -424,7 +424,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/20/2015 20:23:05</publishTime>
     </File>
     <File Include="Scripts/App/Home/Journal.js">
-      <publishTime>01/22/2015 19:57:27</publishTime>
+      <publishTime>01/26/2015 17:28:01</publishTime>
     </File>
     <File Include="Scripts/App/Home/Layout.js">
       <publishTime>08/12/2014 22:17:55</publishTime>
@@ -556,7 +556,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/17/2014 02:29:02</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/13/2014 21:24:09</publishTime>
+      <publishTime>01/26/2015 17:39:45</publishTime>
     </File>
   </ItemGroup>
 </Project>

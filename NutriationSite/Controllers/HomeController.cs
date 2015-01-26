@@ -289,6 +289,15 @@ namespace NutriationSite.Controllers
                 jsDate = jsDate.Remove(gmtIndex);
                 return DateTime.ParseExact(jsDate, formatString, null);
             }
+            else {
+                gmtIndex = jsDate.IndexOf(" UTC");
+                if (gmtIndex > -1)
+                {
+                    formatString = "ddd MMM d HH:mm:ss yyyy";
+                    jsDate = jsDate.Remove(gmtIndex, 9);
+                    return DateTime.ParseExact(jsDate, formatString, null);
+                }
+            }
             return DateTime.Parse(jsDate);
         }
     }
