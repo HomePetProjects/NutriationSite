@@ -21,6 +21,8 @@ window.PN.journal = {
                 });
             }
         })
+        $('#hours-journal ul li').on('mouseover', window.PN.journal.journalBody.showAddBtn);
+        $('#hours-journal ul li').on('mouseout', window.PN.journal.journalBody.hideAddBtn);
     },
 
     journalMenu: {
@@ -66,7 +68,6 @@ window.PN.journal = {
             var now = new Date();
             var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
 
-
             var d = new Date(selectedDate - day * 2);
             $('#day1').attr('value', d.getDate());
             var d = new Date(selectedDate - day);
@@ -90,8 +91,6 @@ window.PN.journal = {
                 $('#day4').css('display', 'inline-block');
                 $('#day5').css('display', 'inline-block');
             }
-
-
         },
 
         clickDateBtn: function () {
@@ -114,12 +113,18 @@ window.PN.journal = {
             this.getMeals();
         },
 
-        redrawJournal: function () {
+        redrawJournal: function (hourHover) {
             $('#hourList li').empty();
+            
+            var NoActiveHourCount = 0; 
+            for (var i = 0; i < window.PN.journal.foods.length; i++) {
+                if (window.PN.journal.foods[i].length == 0) NoActiveHourCount++;
+            }
+            if (hourHover) var width = (938 - 11 * NoActiveHourCount) / -(NoActiveHourCount - 24) - 11;
+            else var width = (958 - 11 * NoActiveHourCount) / -(NoActiveHourCount - 24) - 11;
+
             for (var i = 1; i <= window.PN.journal.foods.length; i++) {
-                $('#hour' + i).append(window.PN.journal.journalBody.calculateOneHour(i - 1));
-                $('#hour' + i).on('mouseover', window.PN.journal.journalBody.showAddBtn);
-                $('#hour' + i).on('mouseout', window.PN.journal.journalBody.hideAddBtn);
+                $('#hour' + i).append(window.PN.journal.journalBody.calculateOneHour(i - 1, width));
                 $('#hour' + i).css('position', 'relative');
                 $('#hour' + i).append('<div id="wrap" style="display:block; left:0px; text-align: center; position: absolute; width: 100%; bottom: 10px"><input type="Button" style="display: none; width: 20px; height: 20px; padding: 0px; font-size: 1em; margin:0px" value="+"></input></div>');
             }
@@ -127,6 +132,7 @@ window.PN.journal = {
         },
 
         showAddBtn: function () {
+            window.PN.journal.journalBody.redrawJournal(true);
             $(this).children('div').show();
             $(this).children('input').show();
             $(this).children('#wrap').children('input').show();
@@ -134,10 +140,11 @@ window.PN.journal = {
 
         hideAddBtn: function () {
             $(this).children('input').hide();
-            $(this).children('div').hide();
+            $(this).children('#hour-journal').hide();
+            $(this).children('#wrap').hide();
         },
 
-        calculateOneHour: function (hour) {
+        calculateOneHour: function (hour, width) {
 
             var Calories = 0;
             var Protein = 0;
@@ -146,7 +153,7 @@ window.PN.journal = {
             var foods = window.PN.journal.foods[hour];
             var products = window.PN.journal.products;
 
-            if (window.PN.journal.foods[hour].length == 0) return '<div style="display: none"><p style="font-weight:bold; text-align: center">' + hour + 'h</p><HR></div>';
+            if (window.PN.journal.foods[hour].length == 0) return '<div id="hour-journal" style="display: none; width: 20px"><p style="font-weight:bold; text-align: center">' + hour + 'h</p><HR></div>';
 
             for (var j = 0; j < foods.length; j++) {
                 for (var k = 0; k < products.length; k++) {
@@ -163,7 +170,7 @@ window.PN.journal = {
             Protein = +Protein.toFixed(2);
             Fat = +Fat.toFixed(2);
             Carbohydrates = +Carbohydrates.toFixed(2);
-            return '<p style="font-weight:bold; text-align: center">' + hour + 'h</p><HR><p style="font-weight:bold">Calories:</p><p>' + Calories + '</p><p style="font-weight:bold">Proteins:</p><p>' + Protein + '</p><p style="font-weight:bold">Fats:</p><p>' + Fat + '</p><p style="font-weight:bold">Carbohydrates:</p><p>' + Carbohydrates + '</p>';
+            return '<div style="width:' + width + 'px"><p style="font-weight:bold; text-align: center">' + hour + 'h</p><HR><p style="font-weight:bold">Calories:</p><p>' + Calories + '</p><p style="font-weight:bold">Proteins:</p><p>' + Protein + '</p><p style="font-weight:bold">Fats:</p><p>' + Fat + '</p><p style="font-weight:bold">Carbohydrates:</p><p>' + Carbohydrates + '</p></div>';
         },
 
         calculateOneDay: function () {

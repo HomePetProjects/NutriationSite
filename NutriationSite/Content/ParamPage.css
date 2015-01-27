@@ -56,7 +56,8 @@ ul#hourList {
     color: #fff;
     margin:0px;
 }
-    .day-btn-class#day3{
+
+.day-btn-class#day3{
     background: #efeeef url(/Content/custom-theme/images/ui-bg_flat_55_7AC0DA_40x100.png) 50% 50% repeat-x;
     font-weight: bold;
     color: #fff;
