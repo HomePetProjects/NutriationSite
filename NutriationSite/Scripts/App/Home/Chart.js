@@ -164,7 +164,7 @@ window.PN.chart = {
                             window.PN.chart.closeBtnClick(this)
                         }
                     }
-                })
+                });
             },
             error: function (xhr, str) {
                 alert('Error: ' + xhr.responseCode);
@@ -239,6 +239,12 @@ window.PN.chart = {
 
     //Button open dialog for Add Value
     addValueDialogBtn: function (e) {
+        window.PN.chart.hideValidationString();
+
+        $('#add-value-dialog #Parameter_Id').attr('value', '');
+        $('#add-value-dialog #Value').attr('value', '');
+        $('#add-value-dialog #Comment').attr('value', '');
+
         var id = $(this).attr("param-id");
         $('#add-value-dialog form input[name=Parameter_Id]').val(id);
         $("#add-value-dialog")
@@ -249,55 +255,63 @@ window.PN.chart = {
             width: "auto",
             buttons: {
                 Add: function () {
-                    var value = $('#add-value-dialog #Value').attr('value');
-                    var temp = value.indexOf(',');
-                    if (temp != '-1') {
-                        var temp = value.split(',');
-                        value = temp[0] + '.' + temp[1];
-                    }
-
-                    window.PN.chart.hideValidationString();
-
-                    if (value.length == 0) {
-                        $('#add-value-dialog #value-empty-validation-message').css('display', 'block');
-                    }
-
-                    else if (isNaN(parseFloat(value))) {
-                        $('#add-value-dialog #value-isnumber-validation-message').css('display', 'block');
-                    }
-                    else {
-                        $.ajax({
-                            type: 'POST',
-                            url: '/Home/AddValue',
-                            data: {
-                                Parameter_Id: $('#add-value-dialog #Parameter_Id').attr('value'),
-                                Value: value,
-                                Comment: $('#add-value-dialog #Comment').attr('value')
-                            },
-                            success: function (data) {
-                                window.PN.chart.drawChart(id);
-                            },
-                            error: function (xhr, str) {
-                                alert('Error: ' + xhr.responseCode);
-                            }
-                        });
-
-                        $('#add-value-dialog #Parameter_Id').attr('value', '');
-                        $('#add-value-dialog #Value').attr('value', '');
-                        $('#add-value-dialog #Comment').attr('value', '');
-                        $(this).dialog('close');
-                        return false;
-                    }
+                    window.PN.chart.addDialogOkBtnClick(id);
                 },
                 Cancel: function () {
-                    window.PN.chart.hideValidationString();
-                    $('#add-value-dialog #Parameter_Id').attr('value', '');
-                    $('#add-value-dialog #Value').attr('value', '');
-                    $('#add-value-dialog #Comment').attr('value', '');
                     $(this).dialog('close');
                 }
             }
         })
+
+
+        $('#add-value-dialog').keypress(function (e) {
+            if (e.keyCode == $.ui.keyCode.ENTER) {
+                event.preventDefault();
+                window.PN.chart.addDialogOkBtnClick(id);
+            }
+        });
+    },
+
+    addDialogOkBtnClick : function (id) {
+        var value = $('#add-value-dialog #Value').attr('value');
+        var temp = value.indexOf(',');
+        if (temp != '-1') {
+            var temp = value.split(',');
+            value = temp[0] + '.' + temp[1];
+        }
+
+        window.PN.chart.hideValidationString();
+
+        if (value.length == 0) {
+            $('#add-value-dialog #value-empty-validation-message').css('display', 'block');
+        }
+
+        else if (isNaN(parseFloat(value))) {
+            $('#add-value-dialog #value-isnumber-validation-message').css('display', 'block');
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: '/Home/AddValue',
+                data: {
+                    Parameter_Id: $('#add-value-dialog #Parameter_Id').attr('value'),
+                    Value: value,
+                    Comment: $('#add-value-dialog #Comment').attr('value')
+                },
+                success: function (data) {
+                    window.PN.chart.drawChart(id);
+                },
+                error: function (xhr, str) {
+                    alert('Error: ' + xhr.responseCode);
+                }
+            });
+
+            $('#add-value-dialog #Parameter_Id').attr('value', '');
+            $('#add-value-dialog #Value').attr('value', '');
+            $('#add-value-dialog #Comment').attr('value', '');
+            $(this).dialog('close');
+            return false;
+        }
     },
 
     //Button open dialog for Add Parameter
@@ -325,5 +339,7 @@ window.PN.chart = {
                 }
             }
         })
-    }
+    },
+
+
 }

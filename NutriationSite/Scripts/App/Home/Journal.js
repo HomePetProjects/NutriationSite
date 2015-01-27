@@ -36,6 +36,7 @@ window.PN.journal = {
             $('#date-peacker').datetimepicker({
                 timepicker: false,
                 format: 'd.m.Y',
+                maxDate: 0,
                 onChangeDateTime: function (dp, $input) {
                     var temp = $input.val().indexOf('.');
                     if (temp != '-1') {
@@ -59,18 +60,38 @@ window.PN.journal = {
 
         redrawDateMenu: function () {
             var date = window.PN.journal.journalMenu.date;
+            var selectedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()).valueOf();
             var day = 24 * 60 * 60 * 1000;
 
-            var d = new Date(date.getTime() - day * 2);
+            var now = new Date();
+            var today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
+
+
+            var d = new Date(selectedDate - day * 2);
             $('#day1').attr('value', d.getDate());
-            var d = new Date(date.getTime() - day);
+            var d = new Date(selectedDate - day);
             $('#day2').attr('value', d.getDate());
-            var d = new Date(date.getTime());
+            var d = new Date(selectedDate);
             $('#day3').attr('value', d.getDate());
-            var d = new Date(date.getTime() + day);
+            var d = new Date(selectedDate + day);
             $('#day4').attr('value', d.getDate());
-            var d = new Date(date.getTime() + day * 2);
+            var d = new Date(selectedDate + day * 2);
             $('#day5').attr('value', d.getDate());
+
+            if (today == selectedDate) {
+                $('#day4').css('display', 'none');
+                $('#day5').css('display', 'none');
+            }
+            if (today - day == selectedDate) {
+                $('#day4').css('display', 'inline-block');
+                $('#day5').css('display', 'none');
+            }
+            else if (today - day * 2 == selectedDate) {
+                $('#day4').css('display', 'inline-block');
+                $('#day5').css('display', 'inline-block');
+            }
+
+
         },
 
         clickDateBtn: function () {
