@@ -29,19 +29,20 @@
 ul#hourList {
     margin: 0; /* Обнуляем значение отступов */
     padding: 0px; /* Значение полей */
-    height: 96%;
+    height: 246px;
 }
 
     ul#hourList li {
         float: left;
         display: block;
         height: 100%;
-        padding: 5px;
+        padding: 2px;
         overflow: hidden;
         text-decoration: none;
         font-size: 14px;
         line-height: 0.5em;
         border-right: 1px solid #787878;
+        width:26px;
     }
 
 #hours-journal{

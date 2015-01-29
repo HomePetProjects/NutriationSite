@@ -255,7 +255,7 @@ window.PN.chart = {
             width: "auto",
             buttons: {
                 Add: function () {
-                    window.PN.chart.addDialogOkBtnClick(id);
+                    window.PN.chart.addDialogOkBtnClick(id);                        
                 },
                 Cancel: function () {
                     $(this).dialog('close');
@@ -284,10 +284,12 @@ window.PN.chart = {
 
         if (value.length == 0) {
             $('#add-value-dialog #value-empty-validation-message').css('display', 'block');
+            return false;
         }
 
         else if (isNaN(parseFloat(value))) {
             $('#add-value-dialog #value-isnumber-validation-message').css('display', 'block');
+            return false;
         }
         else {
             $.ajax({
@@ -309,8 +311,9 @@ window.PN.chart = {
             $('#add-value-dialog #Parameter_Id').attr('value', '');
             $('#add-value-dialog #Value').attr('value', '');
             $('#add-value-dialog #Comment').attr('value', '');
-            $(this).dialog('close');
-            return false;
+
+            $('#add-value-dialog').dialog('close');
+            return true;
         }
     },
 

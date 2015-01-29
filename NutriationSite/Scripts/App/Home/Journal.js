@@ -113,39 +113,73 @@ window.PN.journal = {
             this.getMeals();
         },
 
-        redrawJournal: function (hourHover) {
+        redrawJournal: function () {
+            var journal = window.PN.journal;
             $('#hourList li').empty();
-            
-            var NoActiveHourCount = 0; 
-            for (var i = 0; i < window.PN.journal.foods.length; i++) {
-                if (window.PN.journal.foods[i].length == 0) NoActiveHourCount++;
-            }
-            if (hourHover) var width = (938 - 11 * NoActiveHourCount) / -(NoActiveHourCount - 24) - 11;
-            else var width = (958 - 11 * NoActiveHourCount) / -(NoActiveHourCount - 24) - 11;
 
-            for (var i = 1; i <= window.PN.journal.foods.length; i++) {
-                $('#hour' + i).append(window.PN.journal.journalBody.calculateOneHour(i - 1, width));
+            journal.journalBody.calcJornalPart();
+
+            for (var i = 1; i <= journal.foods.length; i++) {
+                $('#hour' + i).append(journal.journalBody.calculateOneHour(i - 1));
                 $('#hour' + i).css('position', 'relative');
                 $('#hour' + i).append('<div id="wrap" style="display:block; left:0px; text-align: center; position: absolute; width: 100%; bottom: 10px"><input type="Button" style="display: none; width: 20px; height: 20px; padding: 0px; font-size: 1em; margin:0px" value="+"></input></div>');
             }
-            $('#hourList input').on('click', window.PN.journal.viewProductsDialog);
+            $('#hourList input').on('click', journal.viewProductsDialog);
+        },
+
+        calcJornalPart: function () {
+            var padding = $('#hour1').css('padding').replace(/[^-\d\.]/g, '');
+            padding = parseFloat(padding);
+            var border = $('#hour1').css('border-right-width').replace(/[^-\d\.]/g, '');
+            border = parseFloat(border);
+            var NoActiveHourCount = 0;
+
+            for (var i = 0; i < window.PN.journal.foods.length; i++) {
+                if (window.PN.journal.foods[i].length == 0) NoActiveHourCount++;
+            }
+
+            var emptyWidth = 26;
+            var fullWidth = (958 - (emptyWidth + padding * 2 + border) * NoActiveHourCount) / -(NoActiveHourCount - 24) - (padding * 2 + border);
+            if (fullWidth > 150) {
+                fullWidth = 150;
+                emptyWidth = (958 - (fullWidth + padding * 2 + border) * -(NoActiveHourCount - 24)) / NoActiveHourCount - (padding * 2 + border);
+            }
+
+            if (NoActiveHourCount == 24) emptyWidth = 958 / 24 - (padding * 2 + border);
+
+            for (var i = 1; i <= window.PN.journal.foods.length; i++) {
+                if (window.PN.journal.foods[i - 1].length == 0) {
+                    $('#hour' + i).css('width', emptyWidth);
+                }
+                else $('#hour' + i).css('width', fullWidth);
+            }
+
+            $('#hour24').css('border', '0px');
         },
 
         showAddBtn: function () {
-            window.PN.journal.journalBody.redrawJournal(true);
-            $(this).children('div').show();
-            $(this).children('input').show();
+            var currentHour = new Date().getHours();
+            currentHour++;
+            $('#hourList li').children('#wrap').children('input').hide();
+            $('#hourList li').children('#hour-journal').hide();
+
+            $(this).children('#hour-journal').show();
             $(this).children('#wrap').children('input').show();
         },
 
         hideAddBtn: function () {
-            $(this).children('input').hide();
+            var currentHour = new Date().getHours();
+            currentHour++;
+
             $(this).children('#hour-journal').hide();
-            $(this).children('#wrap').hide();
+            $(this).children('#wrap').children('input').hide();
+
+            $('#hour' + currentHour).children('#wrap').children('input').show();
+            $('#hour' + currentHour).children('#hour-journal').show();
+            $('#hour' + currentHour).css('background-color', '#B2DFEE');
         },
 
-        calculateOneHour: function (hour, width) {
-
+        calculateOneHour: function (hour) {
             var Calories = 0;
             var Protein = 0;
             var Fat = 0;
@@ -153,7 +187,9 @@ window.PN.journal = {
             var foods = window.PN.journal.foods[hour];
             var products = window.PN.journal.products;
 
-            if (window.PN.journal.foods[hour].length == 0) return '<div id="hour-journal" style="display: none; width: 20px"><p style="font-weight:bold; text-align: center">' + hour + 'h</p><HR></div>';
+            if (window.PN.journal.foods[hour].length == 0) {
+                return '<div id="hour-journal" style="display: none; width: 100%"><p style="font-weight:bold; text-align: center">' + hour + 'h</p><HR></div>';
+            }
 
             for (var j = 0; j < foods.length; j++) {
                 for (var k = 0; k < products.length; k++) {
@@ -170,7 +206,8 @@ window.PN.journal = {
             Protein = +Protein.toFixed(2);
             Fat = +Fat.toFixed(2);
             Carbohydrates = +Carbohydrates.toFixed(2);
-            return '<div style="width:' + width + 'px"><p style="font-weight:bold; text-align: center">' + hour + 'h</p><HR><p style="font-weight:bold">Calories:</p><p>' + Calories + '</p><p style="font-weight:bold">Proteins:</p><p>' + Protein + '</p><p style="font-weight:bold">Fats:</p><p>' + Fat + '</p><p style="font-weight:bold">Carbohydrates:</p><p>' + Carbohydrates + '</p></div>';
+
+            return '<div><p style="font-weight:bold; text-align: center">' + hour + 'h</p><HR></div><div style="padding-left:3px"><p style="font-weight:bold">Calor.:</p><p>' + Calories + '</p><p style="font-weight:bold">Prot.:</p><p>' + Protein + '</p><p style="font-weight:bold">Fats:</p><p>' + Fat + '</p><p style="font-weight:bold">Carb.:</p><p>' + Carbohydrates + '</p></div>';
         },
 
         calculateOneDay: function () {
@@ -213,6 +250,7 @@ window.PN.journal = {
                     window.PN.journal.foods = $.parseJSON(meals);
                     window.PN.journal.journalBody.redrawJournal();
                     window.PN.journal.journalBody.calculateOneDay();
+                    window.PN.journal.journalBody.hideAddBtn();
                 }
             })
         }
