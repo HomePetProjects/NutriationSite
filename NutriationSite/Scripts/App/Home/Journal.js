@@ -39,6 +39,7 @@ window.PN.journal = {
                 timepicker: false,
                 format: 'd.m.Y',
                 maxDate: 0,
+                closeOnDateSelect: true,
                 onChangeDateTime: function (dp, $input) {
                     var temp = $input.val().indexOf('.');
                     if (temp != '-1') {
@@ -140,8 +141,8 @@ window.PN.journal = {
 
             var emptyWidth = 26;
             var fullWidth = (958 - (emptyWidth + padding * 2 + border) * NoActiveHourCount) / -(NoActiveHourCount - 24) - (padding * 2 + border);
-            if (fullWidth > 150) {
-                fullWidth = 150;
+            if (fullWidth > 60) {
+                fullWidth = 60;
                 emptyWidth = (958 - (fullWidth + padding * 2 + border) * -(NoActiveHourCount - 24)) / NoActiveHourCount - (padding * 2 + border);
             }
 
@@ -537,6 +538,7 @@ window.PN.NewEditProductDialog = {
         }
         else if (state == 'new') {
             title = 'New Product';
+            $('#new-edit-products-dialog #name').attr('value', $('#add-products-dialog #serch-product').val());
             var measures = window.PN.journal.measures;
             for (var i = 0; i < measures.length; i++) {
                 if (i == 0) {
